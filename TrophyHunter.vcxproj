@@ -24,6 +24,7 @@
     <ProjectGuid>{a48a0cfb-a0a1-436f-aed8-c516ea696fd3}</ProjectGuid>
     <RootNamespace>TrophyHunter</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>SpeedHunter</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
