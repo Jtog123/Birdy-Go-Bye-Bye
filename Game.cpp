@@ -7,61 +7,90 @@
 #include "Game.h"
 
 
-int main()
+
+Game::Game()
 {
-    // create the window
+    // EMPTY
+}
 
-    sf::RenderWindow window(sf::VideoMode(800, 600), "My window");
+Game::Game(const int width, const int height)
+    :window(sf::VideoMode(width,height), "Speed Hunter") // ADD PLAYER?
+{
+    window.setFramerateLimit(60);
+    initVariables();
 
-    //sf::CircleShape circ(100.f, 100.f);
-    //circ.setFillColor(sf::Color::Blue);
-    sf::Texture texture;
-    texture.loadFromFile("testsheet12.png");
+}
 
-    sf::IntRect rect(0, 0, 32, 32);
-    sf::Sprite sprite(texture, rect);
-    sprite.setScale(3, 3);
+void Game::initVariables()
+{
+    gameWon = false;
+    gameOver = false;
+    timeRemaning = true;
+}
 
-    sf::Clock clock;
+void Game::displayGameOver()
+{
+}
 
-    // run the program as long as the window is open
+void Game::displayGameWon()
+{
+}
+
+void Game::pollWindowEvents(sf::Event& event)
+{
+}
+
+void Game::handleInputs()
+{
+}
+
+void Game::handleButtonEvents(sf::Event&)
+{
+}
+
+void Game::updateObjects()
+{
+}
+
+void Game::drawObjects()
+{
+    //player->draw(window) this should draw scope
+
+}
+
+void Game::startTimer()
+{
+}
+
+void Game::run()
+{
+
     while (window.isOpen())
     {
-        // check all the window's events that were triggered since the last iteration of the loop
-        sf::Event event;
-        while (window.pollEvent(event))
+
+        handleInputs();
+
+        drawObjects();
+
+        if (gameOver)
         {
-            // "close requested" event: we close the window
-            if (event.type == sf::Event::Closed)
-                window.close();
+            displayGameOver();
+            return;
         }
 
-        if (clock.getElapsedTime().asSeconds() > .1f)
+        if (gameWon)
         {
-            if (rect.left == 224)
-            {
-                rect.left = 0;
-            }  
-            else
-            {
-                rect.left += 32;
-            }
-            sprite.setTextureRect(rect);
-            clock.restart();
+            displayGameWon();
+            return;
         }
-        
 
-        // clear the window with black color
-        window.clear(sf::Color::Black);
+        // Get everything you need here.
+        drawObjects();
 
-        // draw everything here...
-        // window.draw(...);
-        //window.draw(circ);
-        window.draw(sprite);
-
-        // end the current frame
-        window.display();
     }
 
-    return 0;
 }
+
+
+
+

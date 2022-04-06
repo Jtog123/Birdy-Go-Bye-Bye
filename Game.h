@@ -4,6 +4,7 @@
 //#include "SFML/Audio.hpp"
 #include "SFML/Graphics.hpp"
 //#include "SFML/Network.hpp"
+#include"Player.h"
 
 #ifndef  GAME_H
 #define GAME_H
@@ -12,19 +13,21 @@ class Game
 {
 	public:
 		Game();
-		virtual ~Game();
+		Game(const int,const int);
+		//virtual ~Game(); // Remove Destructor?
 		void run();
 
 	private:
 		sf::RenderWindow window;
 		sf::Clock clock;
-		//std::unique_ptr<Player> player;
+		std::unique_ptr<Player> player;
 		//std::unique_ptr<Bird> birdPtr;
 		bool gameWon;
 		bool gameOver;
 		bool timeRemaning;
 
 		// FUNCTIONS
+		void initVariables();
 
 		void displayGameOver();
 
@@ -40,7 +43,7 @@ class Game
 
 		void drawObjects();
 
-		void startTime();
+		void startTimer();
 
 };
 
