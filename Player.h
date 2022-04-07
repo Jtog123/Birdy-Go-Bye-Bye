@@ -13,17 +13,17 @@ class Player : public Entity
 {
 	public:
 		Player();
-		Player(sf::Vector2f& pos);
+		Player(const sf::RenderWindow&);
 		void shoot();
-		void setPosition(const float xPos, const float yPos);
-		sf::Vector2f getPosition() const;
+		void setScopePosition(const sf::Sprite&);
+		sf::Vector2f getScopePosition() const;
 		void draw(sf::RenderWindow&) override;
 
 	private:
 		sf::Texture texture;
 		sf::Sprite scopeSprite;
 		bool shotFired;
-		sf::Vector2f position;
+		sf::Vector2f scopePosition;
 
 		// functions init variables? setCircle size and pos? set lines?
 

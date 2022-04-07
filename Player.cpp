@@ -2,29 +2,20 @@
 #include<iostream>
 
 Player::Player()
-{
+{	
 }
 
-Player::Player(sf::Vector2f& pos)
+Player::Player(const sf::RenderWindow& window)
+	:shotFired(false)
 {
-	//When creating the player pass in the center of the screen to the constructor;
-	// May need to adjust as the scope will be onMouseHover
-	//But this might be to set its initial position.
-	setPosition(pos.x, pos.y);
-}
+	/*
+		Pass in the game window to set the Players posistion
+	*/
 
-void Player::shoot()
-{
-}
+	scopePosition.x = window.getPosition().x / 2;
+	scopePosition.y = window.getPosition().y / 2;
+	//get global bounds?
 
-void Player::setPosition(const float xPos, const float yPos)
-{
-	// Set scope to the center;
-	scopeSprite.setPosition(xPos, yPos);
-}
-
-void Player::draw(sf::RenderWindow& window)
-{
 	if (!texture.loadFromFile("Sprites/Scope.png"))
 	{
 		std::cout << "Could not load texture" << std::endl;
@@ -33,6 +24,27 @@ void Player::draw(sf::RenderWindow& window)
 
 	scopeSprite.setTexture(texture);
 	scopeSprite.setScale(.25, .25);
-	window.draw(scopeSprite);
+	scopeSprite.setPosition(scopePosition.x, scopePosition.y);
 
+}
+
+
+void Player::setScopePosition(const sf::Sprite& sprite)
+{
+	// Set scope to the center;
+	//sprite.setPosition(position);
+}
+
+sf::Vector2f Player::getScopePosition() const
+{
+	return scopePosition;
+}
+
+void Player::shoot()
+{
+}
+
+void Player::draw(sf::RenderWindow& window)
+{
+	window.draw(scopeSprite);
 }

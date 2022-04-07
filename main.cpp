@@ -12,6 +12,8 @@ int main()
 
     sf::RenderWindow window(sf::VideoMode(800, 600), "My window");
 
+    Player(window); // Sets position
+
     //sf::CircleShape circ(100.f, 100.f);
     //circ.setFillColor(sf::Color::Blue);
     sf::Texture texture;
