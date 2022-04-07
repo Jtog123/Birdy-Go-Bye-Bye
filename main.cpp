@@ -15,7 +15,7 @@ int main()
     //sf::CircleShape circ(100.f, 100.f);
     //circ.setFillColor(sf::Color::Blue);
     sf::Texture texture;
-    texture.loadFromFile("testsheet12.png");
+    texture.loadFromFile("Sprites/BirdSheet1.png");
 
     float gameSeconds = 5.f;
 

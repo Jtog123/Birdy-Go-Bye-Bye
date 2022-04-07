@@ -54,7 +54,7 @@ void Game::updateObjects()
 
 void Game::drawObjects()
 {
-    //player->draw(window) this should draw scope
+    player->draw(window); //this should draw scope
 
 }
 

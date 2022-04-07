@@ -15,12 +15,13 @@ class Player : public Entity
 		Player();
 		Player(sf::Vector2f& pos);
 		void shoot();
-		void setPosition(const sf::Vector2f&);
+		void setPosition(const float xPos, const float yPos);
 		sf::Vector2f getPosition() const;
 		void draw(sf::RenderWindow&) override;
 
 	private:
-		sf::CircleShape scope;
+		sf::Texture texture;
+		sf::Sprite scopeSprite;
 		bool shotFired;
 		sf::Vector2f position;
 

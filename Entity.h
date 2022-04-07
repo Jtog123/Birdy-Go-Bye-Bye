@@ -1,3 +1,6 @@
+#ifndef ENTITY_H
+#define ENTITY_H
+
 #include <iostream>
 
 class Entity
@@ -10,3 +13,4 @@ class Entity
 
 
 };
+#endif // !1
