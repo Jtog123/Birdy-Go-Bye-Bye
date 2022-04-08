@@ -6,7 +6,7 @@ Player::Player()
 }
 
 Player::Player(const sf::RenderWindow& window)
-	:shotFired(false)
+	:shotFired(false), totalBullets(2)
 {
 	/*
 		Pass in the game window to set the Players posistion
@@ -25,15 +25,9 @@ Player::Player(const sf::RenderWindow& window)
 	scopeSprite.setTexture(texture);
 	scopeSprite.setScale(.25, .25);
 	scopeSprite.setPosition(scopePosition.x, scopePosition.y);
-
 }
 
 
-void Player::setScopePosition(const sf::Sprite& sprite)
-{
-	// Set scope to the center;
-	//sprite.setPosition(position);
-}
 
 sf::Vector2f Player::getScopePosition() const
 {
@@ -42,6 +36,28 @@ sf::Vector2f Player::getScopePosition() const
 
 void Player::shoot()
 {
+	// for the scope maybe use a smallblack circle place in center of scope
+	// if the small circle intersects bird and mouseisclicked
+	// 
+	// In the update part on click we will shoot the gun
+	//
+	// // shotFired = true
+	// bird dies and falls of map (along with this)
+	// totalBullets -= 1;
+
+	/* if (mousecliked)
+	* player->shoot() sets shotfired to true
+	* if(shotFired)
+	*	if(if the crosshairs allign and interact with bird pixels)
+	*		bird->die();
+	*		totalBullets -= 1;
+	*		check if game is won
+	*	else if(bullet MISSES and doesnt interact with pixels)
+	*		totalBullets -= 1;
+	*		check if game is over
+	* 
+	* */
+	
 }
 
 void Player::draw(sf::RenderWindow& window)

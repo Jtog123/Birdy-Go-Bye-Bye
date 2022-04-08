@@ -15,7 +15,7 @@ class Player : public Entity
 		Player();
 		Player(const sf::RenderWindow&);
 		void shoot();
-		void setScopePosition(const sf::Sprite&);
+		//void setScopePosition(const sf::Sprite&);
 		sf::Vector2f getScopePosition() const;
 		void draw(sf::RenderWindow&) override;
 
@@ -24,6 +24,7 @@ class Player : public Entity
 		sf::Sprite scopeSprite;
 		bool shotFired;
 		sf::Vector2f scopePosition;
+		int totalBullets;
 
 		// functions init variables? setCircle size and pos? set lines?
 

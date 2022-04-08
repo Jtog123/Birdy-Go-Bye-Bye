@@ -21,7 +21,7 @@ class Game
 		sf::RenderWindow window;
 		sf::Clock clock;
 		std::unique_ptr<Player> player;
-		//std::unique_ptr<Bird> birdPtr;
+		//std::unique_ptr<Bird> birdPtr; CREATE BIRD CLASS TOMORROW
 		bool gameWon;
 		bool gameOver;
 		bool timeRemaning;
