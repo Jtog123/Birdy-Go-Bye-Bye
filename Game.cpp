@@ -14,7 +14,7 @@ Game::Game()
 }
 
 Game::Game(const int width, const int height)
-    :window(sf::VideoMode(width,height), "Speed Hunter") // ADD PLAYER?
+    : window(sf::VideoMode(width,height), "Speed Hunter") // ADD PLAYER?
 {
     window.setFramerateLimit(60);
     initVariables();
@@ -70,7 +70,7 @@ void Game::run()
 
         handleInputs();
 
-        drawObjects();
+        updateObjects();
 
         if (gameOver)
         {

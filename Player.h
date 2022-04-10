@@ -1,8 +1,8 @@
 #include <iostream>
-#include "SFML/System.hpp"
-#include "SFML/Window.hpp"
+//#include "SFML/System.hpp"
+//#include "SFML/Window.hpp"
 //#include "SFML/Audio.hpp"
-#include "SFML/Graphics.hpp"
+//#include "SFML/Graphics.hpp"
 //#include "SFML/Network.hpp"
 #include"Entity.h"
 
@@ -17,7 +17,10 @@ class Player : public Entity
 		void shoot();
 		//void setScopePosition(const sf::Sprite&);
 		sf::Vector2f getScopePosition() const;
-		void draw(sf::RenderWindow&) override;
+
+		//void draw(const sf::RenderTarget& window, sf::RenderStates) const override;
+
+		void draw(sf::RenderWindow&) override; // VIRTUAL FUNCTION
 
 	private:
 		sf::Texture texture;

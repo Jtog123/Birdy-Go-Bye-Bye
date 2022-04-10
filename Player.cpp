@@ -34,9 +34,25 @@ sf::Vector2f Player::getScopePosition() const
 	return scopePosition;
 }
 
+void Player::draw(sf::RenderWindow& window)
+{
+	window.draw(scopeSprite);
+}
+
+
+
+
+/*
+void Player::draw(const sf::RenderTarget& window, sf::RenderStates) const
+{
+	window.draw(scopeSprite);
+}
+*/
+
 void Player::shoot()
 {
-	// for the scope maybe use a smallblack circle place in center of scope
+	// for the scope maybe use a smallblack circle place in center of scope?
+	// putt small black circle in center of sprite
 	// if the small circle intersects bird and mouseisclicked
 	// 
 	// In the update part on click we will shoot the gun
@@ -60,7 +76,7 @@ void Player::shoot()
 	
 }
 
-void Player::draw(sf::RenderWindow& window)
-{
-	window.draw(scopeSprite);
-}
+
+
+
+
