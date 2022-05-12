@@ -4,12 +4,17 @@
 int main()
 {
 
-    //Game game;
-    //game.run();
+    Game game(800,600);
+    game.run();
     // 
     // 
     // create the window
 
+
+
+
+    //Below is just a test--------------------
+    /*
     sf::RenderWindow window(sf::VideoMode(800, 600), "My window");
 
     Player(window); // Sets position
@@ -65,7 +70,7 @@ int main()
             sprite.setTextureRect(rect);
             clock.restart();
         }
-        */
+        
 
 
         // clear the window with black color
@@ -79,6 +84,6 @@ int main()
         // end the current frame
         window.display();
     }
-
+    */
     return 0;
 }

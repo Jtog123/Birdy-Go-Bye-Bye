@@ -3,13 +3,21 @@
 #ifndef BIRD_H
 #define BIRD_H
 
+enum class BirdType
+{
+	Brown,
+	Blue,
+	Red,
+};
+
 class Bird : public Entity
 {
 	public:
 		Bird();
-		void draw(sf::RenderWindow&) override;
-		virtual void fly() = 0; // PURE VIRTUAL
-		virtual void die() = 0; // PURE VIRTUAL
+		Bird(BirdType);
+		void draw(sf::RenderWindow&);
+		void fly(); // PURE VIRTUAL?
+		void die(); // PURE VIRTUAL?
 		void setPosition(const sf::Vector2f&);
 		sf::Vector2f getPosition() const;
 		void setWidth(const int&);

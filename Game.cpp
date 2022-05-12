@@ -1,11 +1,20 @@
 #include <iostream>
+#include<vector>
 //#include "SFML/System.hpp"
 //#include "SFML/Window.hpp"
 //#include "SFML/Audio.hpp"
-//#include "SFML/Graphics.hpp"
+#include "SFML/Graphics.hpp"
 //#include "SFML/Network.hpp"
 #include "Game.h"
 
+/*
+*     Bird brownB(BirdType::Brown);
+    std::vector<Bird> birdVect(50);
+    for (int i = 0; i < birdVect.size(); ++i)
+    {
+        birdVect[i] = brownB;
+    }
+*/
 
 
 Game::Game()
@@ -14,7 +23,8 @@ Game::Game()
 }
 
 Game::Game(const int width, const int height)
-    : window(sf::VideoMode(width,height), "Speed Hunter") // ADD PLAYER?
+    : window(sf::VideoMode(width,height), "Speed Hunter"),
+    player(std::make_unique<Player>(window))// ADD PLAYER?
 {
     window.setFramerateLimit(60);
     initVariables();
@@ -26,6 +36,7 @@ void Game::initVariables()
     gameWon = false;
     gameOver = false;
     timeRemaning = true;
+    //Player playerTest(window);
 }
 
 void Game::displayGameOver()
@@ -50,6 +61,7 @@ void Game::handleButtonEvents(sf::Event&)
 
 void Game::updateObjects()
 {
+    
 }
 
 void Game::drawObjects()
@@ -84,7 +96,6 @@ void Game::run()
             return;
         }
 
-        // Get everything you need here.
         drawObjects();
 
     }
