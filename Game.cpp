@@ -36,7 +36,6 @@ void Game::initVariables()
     gameWon = false;
     gameOver = false;
     timeRemaning = true;
-    //Player playerTest(window);
 }
 
 void Game::displayGameOver()
@@ -53,6 +52,19 @@ void Game::pollWindowEvents(sf::Event& event)
 
 void Game::handleInputs()
 {
+        sf::Event event;
+        while (window.pollEvent(event))
+        {
+            switch (event.type)
+            {
+                case sf::Event::Closed:
+                    window.close();
+                    break;
+            }
+        }
+
+
+
 }
 
 void Game::handleButtonEvents(sf::Event&)
@@ -61,12 +73,21 @@ void Game::handleButtonEvents(sf::Event&)
 
 void Game::updateObjects()
 {
-    
+    //Set the position of the scope to that of the mouse
+    //sscopeSprite.setPoition(Mouse::getposition(window).x,Mouse::getposition(window).y)
+    player->setScopePosition(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y);
+
+    //Hits 0,0 when center of the scope is in top left corner
+    std::cout << "X: " << player->getScopePosition().x << std::endl;
+    std::cout << "Y: " << player->getScopePosition().y << std::endl;
 }
 
 void Game::drawObjects()
 {
+    window.clear(sf::Color::White);
     player->draw(window); //this should draw scope
+
+    window.display();
 
 }
 

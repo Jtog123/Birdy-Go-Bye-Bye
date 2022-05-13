@@ -10,7 +10,7 @@ enum class BirdType
 	Red,
 };
 
-class Bird : public Entity
+class Bird
 {
 	public:
 		Bird();

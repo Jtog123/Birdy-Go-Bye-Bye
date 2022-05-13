@@ -9,18 +9,19 @@
 #ifndef  PLAYER_H
 #define PLAYER_H
 
-class Player : public Entity
+class Player 
 {
 	public:
 		Player();
 		Player(const sf::RenderWindow&);
 		void shoot();
 		//void setScopePosition(const sf::Sprite&);
+		void setScopePosition(float x, float y);
 		sf::Vector2f getScopePosition() const;
 
 		//void draw(const sf::RenderTarget& window, sf::RenderStates) const override;
 
-		void draw(sf::RenderWindow&) override; // VIRTUAL FUNCTION
+		void draw(sf::RenderWindow&); // VIRTUAL FUNCTION
 
 	private:
 		sf::Texture texture;

@@ -10,6 +10,7 @@
 
 #include <iostream>
 
+/*
 class Entity //: public sf::Drawable
 {
 	public:
@@ -21,4 +22,5 @@ class Entity //: public sf::Drawable
 
 	private:
 };
+*/
 #endif // !1

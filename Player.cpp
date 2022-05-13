@@ -23,15 +23,22 @@ Player::Player(const sf::RenderWindow& window)
 	}
 
 	scopeSprite.setTexture(texture);
-	scopeSprite.setScale(.25, .25);
+	scopeSprite.setScale(.75, .75);
+	scopeSprite.setOrigin((sf::Vector2f)texture.getSize() / 2.f);
 	scopeSprite.setPosition(scopePosition.x, scopePosition.y);
 }
 
 
 
+void Player::setScopePosition(float x, float y)
+{
+	scopeSprite.setPosition(x, y);
+}
+
 sf::Vector2f Player::getScopePosition() const
 {
-	return scopePosition;
+
+	return scopeSprite.getPosition();
 }
 
 void Player::draw(sf::RenderWindow& window)

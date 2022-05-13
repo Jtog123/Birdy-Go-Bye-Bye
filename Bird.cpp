@@ -91,10 +91,9 @@ Bird::Bird(BirdType bird_type)
 
 void Bird::draw(sf::RenderWindow& window)
 {
-	// Draw Bird Sprite here? Or in indivdual class?
 	window.draw(brownBirdSprite);
-	window.draw(blueBirdSprite);
-	window.draw(redBirdSprite);
+	//window.draw(blueBirdSprite);
+	//window.draw(redBirdSprite);
 
 }
 
