@@ -74,12 +74,33 @@ void Game::handleButtonEvents(sf::Event&)
 void Game::updateObjects()
 {
     //Set the position of the scope to that of the mouse
-    //sscopeSprite.setPoition(Mouse::getposition(window).x,Mouse::getposition(window).y)
     player->setScopePosition(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y);
 
-    //Hits 0,0 when center of the scope is in top left corner
-    std::cout << "X: " << player->getScopePosition().x << std::endl;
-    std::cout << "Y: " << player->getScopePosition().y << std::endl;
+    // Keeps Scope in bounds on Left Side
+    // EXTRA 15 PIXELS FOR BUFFER
+    if (player->getScopePosition().x < 15)
+    {
+        player->setScopePosition(15, player->getScopePosition().y);
+    }
+
+    // Keeps Scope in bounds on Right Side
+    if (player->getScopePosition().x > window.getSize().x - 15)
+    {
+        player->setScopePosition(window.getSize().x - 15, player->getScopePosition().y);
+    }
+
+    // Keeps Scope in bounds on top
+    if (player->getScopePosition().y < 15)
+    {
+        player->setScopePosition(player->getScopePosition().x, 15);
+    }
+
+    // Keeps Scope in bounds at Bottom
+    if (player->getScopePosition().y > window.getSize().y - 15)
+    {
+        player->setScopePosition(player->getScopePosition().x, window.getSize().y - 15);
+    }
+
 }
 
 void Game::drawObjects()

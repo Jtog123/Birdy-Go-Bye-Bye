@@ -37,8 +37,12 @@ void Player::setScopePosition(float x, float y)
 
 sf::Vector2f Player::getScopePosition() const
 {
-
 	return scopeSprite.getPosition();
+}
+
+sf::Sprite Player::getSprite() const
+{
+	return scopeSprite;
 }
 
 void Player::draw(sf::RenderWindow& window)

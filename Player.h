@@ -18,6 +18,7 @@ class Player
 		//void setScopePosition(const sf::Sprite&);
 		void setScopePosition(float x, float y);
 		sf::Vector2f getScopePosition() const;
+		sf::Sprite getSprite() const;
 
 		//void draw(const sf::RenderTarget& window, sf::RenderStates) const override;
 
