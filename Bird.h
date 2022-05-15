@@ -13,12 +13,12 @@ enum class BirdType
 class Bird
 {
 	public:
-		Bird();
+		Bird(const sf::RenderWindow& window);
 		Bird(BirdType);
 		void draw(sf::RenderWindow&);
 		void fly(); // PURE VIRTUAL?
-		void die(); // PURE VIRTUAL?
-		void setPosition(const sf::Vector2f&);
+		void die(); // Stop animating the bird, have it fall off the screen
+		void setBirdPosition(float,float);
 		sf::Vector2f getPosition() const;
 		void setWidth(const int&);
 		int getWidth() const;

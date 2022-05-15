@@ -52,22 +52,28 @@ int main()
 
 */
 
+Bird::Bird(const sf::RenderWindow& window)
+{
+}
+
 Bird::Bird(BirdType bird_type)
 {
 	switch (bird_type)
 	{
 		case BirdType::Brown:
-			if (!brownBirdText.loadFromFile("Sprites/BrownBirdSheet"))
+			if (!brownBirdText.loadFromFile("Sprites/BrownBirdSheet.png"))
 			{
 				std::cout << "Could not load Brown Birds" << std::endl;
 				return;
 			}
 			brownBirdSprite.setTexture(brownBirdText);
+			brownBirdSprite.setScale(1.75, 1.75);
+			brownBirdSprite.setTextureRect(sf::IntRect(0, 0, 32, 32));
 			speed = 10;
 			break;
 
 		case BirdType::Blue:
-			if (!blueBirdText.loadFromFile("Sprites/BlueBirdSheet"))
+			if (!blueBirdText.loadFromFile("Sprites/BlueBirdSheet.png"))
 			{
 				std::cout << "Could not load Blue Birds" << std::endl;
 				return;
@@ -77,7 +83,7 @@ Bird::Bird(BirdType bird_type)
 			break;
 
 		case BirdType::Red:
-			if (!redBirdText.loadFromFile("Sprites/BirdSheet1"))
+			if (!redBirdText.loadFromFile("Sprites/BirdSheet1.png"))
 			{
 				std::cout << "Could not load Red Birds" << std::endl;
 				return;
@@ -92,16 +98,21 @@ Bird::Bird(BirdType bird_type)
 void Bird::draw(sf::RenderWindow& window)
 {
 	window.draw(brownBirdSprite);
-	//window.draw(blueBirdSprite);
-	//window.draw(redBirdSprite);
+	window.draw(blueBirdSprite);
+	window.draw(redBirdSprite);
 
 }
 
-void Bird::setPosition(const sf::Vector2f& pos)
+void Bird::fly()
+{
+	//Create frame counter and row iterate through the frames and half the birds fly
+}
+
+void Bird::setBirdPosition(float x, float y)
 {
 	// blueBird.setPosition(position)
 	// 
-	position = pos;
+	brownBirdSprite.setPosition(x, y);
 }
 
 void Bird::setSpeed(const float& sp)
