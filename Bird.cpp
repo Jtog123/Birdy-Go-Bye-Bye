@@ -57,6 +57,7 @@ Bird::Bird(const sf::RenderWindow& window)
 }
 
 Bird::Bird(BirdType bird_type)
+	:position(700,150)
 {
 	switch (bird_type)
 	{
@@ -68,7 +69,8 @@ Bird::Bird(BirdType bird_type)
 			}
 			brownBirdSprite.setTexture(brownBirdText);
 			brownBirdSprite.setScale(1.75, 1.75);
-			brownBirdSprite.setTextureRect(sf::IntRect(0, 0, 32, 32));
+			//brownBirdSprite.setTextureRect(sf::IntRect(0, 0, 32, 32));
+			brownBirdSprite.setPosition(position);
 			speed = 10;
 			break;
 
@@ -105,10 +107,29 @@ void Bird::draw(sf::RenderWindow& window)
 
 void Bird::fly()
 {
+
+	if (frameCounter == 5)
+	{
+		frame = (frame + 1) % 8;
+		frameCounter = 0;
+	}
+	++frameCounter;
+	brownBirdSprite.setTextureRect(sf::IntRect(frame * 32, 0, 32, 32));
+	//setBirdPosition(700, 150);
+	//position.y = 150;
+ // Cant have it here
+	position.x -= brownBirdVelX;
+	brownBirdSprite.setPosition(position);
+	
+
 	//Create frame counter and row iterate through the frames and half the birds fly
+
+	/*Keeps reseting its position every time though the loop need it to
+	1. set initial position
+	2. decrement pixels from that position*/
 }
 
-void Bird::setBirdPosition(float x, float y)
+void Bird::setInitialBirdPosition(float x, float y)
 {
 	// blueBird.setPosition(position)
 	// 

@@ -29,6 +29,7 @@ class Game
 		bool gameOver;
 		bool timeRemaning;
 
+
 		// FUNCTIONS
 		void initVariables();
 

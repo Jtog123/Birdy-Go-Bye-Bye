@@ -37,7 +37,6 @@ void Game::initVariables()
     gameWon = false;
     gameOver = false;
     timeRemaning = true;
-
 }
 
 void Game::displayGameOver()
@@ -105,13 +104,14 @@ void Game::updateObjects()
     }
 
     //Set Bird Row 1 position
-    birdPtr->setBirdPosition(window.getSize().x - 100, window.getSize().y - 450);
+    birdPtr->fly();
 
 }
 
 void Game::drawObjects()
 {
     window.clear(sf::Color::White);
+
     player->draw(window); //this should draw scope
     birdPtr->draw(window);
 
@@ -132,6 +132,7 @@ void Game::run()
         handleInputs();
 
         updateObjects();
+
 
         if (gameOver)
         {
