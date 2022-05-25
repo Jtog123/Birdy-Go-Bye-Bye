@@ -33,10 +33,12 @@ Game::Game()
 Game::Game(const int width, const int height)
     : window(sf::VideoMode(width,height), "Speed Hunter"),
     player(std::make_unique<Player>(window)),
-    birdPtr(std::make_unique<Bird>(BirdType::Brown))
+    birdPtr(std::make_unique<Bird>())
 {
     window.setFramerateLimit(60);
     initVariables();
+
+
     //    gl_vec = std::unique_ptr<std::vector<MyClass>>(new std::vector<MyClass>());
     //std::make_unique<std::vector<Bird>>(BirdType::Brown))
     // std::make_unique<Bird>(BirdType::Brown)
@@ -52,7 +54,7 @@ void Game::initVariables()
     gameWon = false;
     gameOver = false;
     timeRemaning = true;
-    levelOneBirdVect = birdPtr->createBirdVector(15, 0, 1); // levelOneBirdVect add to class?
+    levelOneBirdVect = birdPtr->createBirdVector(5, 0, 0); // levelOneBirdVect add to class?
 
     // Loop through the vector to draw?
 
@@ -93,7 +95,7 @@ void Game::handleButtonEvents(sf::Event&)
 void Game::updateObjects()
 {
 
-    //std::vector<Bird> bridVect = { BirdType::Brown, BirdType::Red };
+
     //Set the position of the scope to that of the mouse
     player->setScopePosition(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y);
 
@@ -122,6 +124,7 @@ void Game::updateObjects()
         player->setScopePosition(player->getScopePosition().x, window.getSize().y - 15);
     }
 
+
     birdPtr->fly();
 
 }
@@ -131,15 +134,14 @@ void Game::drawObjects()
     window.clear(sf::Color::White);
 
     player->draw(window); //this should draw scope
-    birdPtr->draw(window);
+   // birdPtr->draw(window);
+
 
     //ALL BIRDS ARE BEING DRAW NOW STAGGER THEIR POSITIONS. IN UPDATEOBJECTS?
     for (int i = 0; i < levelOneBirdVect.size(); ++i)
     {
         window.draw(levelOneBirdVect[i].getSprite());
     }
-
-
 
     window.display();
 

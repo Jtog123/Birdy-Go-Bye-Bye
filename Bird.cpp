@@ -73,7 +73,8 @@ Bird::Bird(const sf::RenderWindow& window)
 }
 
 Bird::Bird(BirdType bird_type)
-	:vectOnePosition(700,150) // vector 1 position, where to create vector and use them?
+	:position(700,150)
+	// vector 1 position, where to create vector and use them?
 {
 	switch (bird_type)
 	{
@@ -85,9 +86,6 @@ Bird::Bird(BirdType bird_type)
 			}
 			birdSprite.setTexture(birdText);
 			birdSprite.setScale(1.75, 1.75);
-			//brownBirdSprite.setTextureRect(sf::IntRect(0, 0, 32, 32));
-			//brownBirdSprite.setPosition(position);
-			speed = 10;
 			break;
 
 		case BirdType::Blue:
@@ -98,7 +96,6 @@ Bird::Bird(BirdType bird_type)
 			}
 			birdSprite.setTexture(birdText);
 			birdSprite.setScale(1.75, 1.75);
-			speed = 25;
 			break;
 
 		case BirdType::Red:
@@ -109,7 +106,6 @@ Bird::Bird(BirdType bird_type)
 			}
 			birdSprite.setTexture(birdText);
 			birdSprite.setScale(1.75, 1.75);
-			speed = 50;
 			break;
 	}
 
@@ -148,38 +144,12 @@ std::vector<Bird> Bird::createBirdVector(int numOfBrown, int numOfBlue, int numO
 
 void Bird::draw(sf::RenderWindow& window)
 {
-	//window.draw(brownBirdSprite);
-	//window.draw(blueBirdSprite);
-	//window.draw(redBirdSprite);
-
 	window.draw(birdSprite);
 
-
-	/*
-	levelOneBirdVect = createBirdVector(15, 0, 1);
-	for (int i = 0; i < levelOneBirdVect.size(); ++i)
-	{
-		if (levelOneBirdVect[i] == BirdType::Brown)
-		{
-			//window.draw(brownBirdSprite)
-		}
-	}
-
-	*/
 }
 
 void Bird::fly()
 {
-
-	//Stagger the position of each bird in BirdVectTest
-	//How do i access each individual bird sprite within the vector?
-
-	//std::vector<Bird> birdVectTest = createBirdVector(35, 0, 0);
-
-	//for (int i = 0; i < birdVectTest.size(); ++i)
-	//{
-
-	//}
 
 
 	if (frameCounter == 5)
@@ -189,8 +159,10 @@ void Bird::fly()
 	}
 	++frameCounter;
 	birdSprite.setTextureRect(sf::IntRect(frame * 32, 0, 32, 32));
-	vectOnePosition.x -= birdVelX;
-	birdSprite.setPosition(vectOnePosition);
+	position.x -= birdVelX;
+	birdSprite.setPosition(position);
+
+	//Setting the bird sprite in two different positions.
 	
 
 	//Create frame counter and row iterate through the frames and half the birds fly
@@ -200,22 +172,18 @@ void Bird::fly()
 	2. decrement pixels from that position*/
 }
 
-void Bird::setInitialBirdPosition(float x, float y)
+void Bird::setBirdPosition(sf::Vector2f pos)
 {
 	// blueBird.setPosition(position)
 	// 
 	//brownBirdSprite.setPosition(x, y);
 }
 
-void Bird::setSpeed(const float& sp)
+sf::Vector2f Bird::getPosition() const
 {
-	speed = sp;
+	return position;
 }
 
-float Bird::getSpeed() const
-{
-	return speed;
-}
 
 sf::Sprite Bird::getSprite() const
 {
