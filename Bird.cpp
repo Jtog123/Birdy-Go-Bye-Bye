@@ -32,9 +32,6 @@ Yeah, but then it's semantically not only about the appearance so I'd name it a 
 //dynamically allocated vector of birds unique ptr;
 
 
-
-
-
 int main()
 {
 	Bird redBird(BirdType::Red);
@@ -50,14 +47,29 @@ int main()
 	return 0;
 }
 
+
+Where am I going to need this vector?
+How do i position the vector?
+Do i position the vector or the collection of sprites?
+
+Stegger the position of each bird in BirdVectTest
+
+
 */
 
-Bird::Bird(const sf::RenderWindow& window)
+
+
+Bird::Bird()
 {
 }
 
+Bird::Bird(const sf::RenderWindow& window)
+{
+	
+}
+
 Bird::Bird(BirdType bird_type)
-	:position(700,150)
+	:birdVect1Position(700,150) // vector 1 position, where to create vector and use them?
 {
 	switch (bird_type)
 	{
@@ -70,7 +82,7 @@ Bird::Bird(BirdType bird_type)
 			brownBirdSprite.setTexture(brownBirdText);
 			brownBirdSprite.setScale(1.75, 1.75);
 			//brownBirdSprite.setTextureRect(sf::IntRect(0, 0, 32, 32));
-			brownBirdSprite.setPosition(position);
+			//brownBirdSprite.setPosition(position);
 			speed = 10;
 			break;
 
@@ -81,6 +93,7 @@ Bird::Bird(BirdType bird_type)
 				return;
 			}
 			blueBirdSprite.setTexture(blueBirdText);
+			blueBirdSprite.setScale(1.75, 1.75);
 			speed = 25;
 			break;
 
@@ -91,22 +104,79 @@ Bird::Bird(BirdType bird_type)
 				return;
 			}
 			redBirdSprite.setTexture(redBirdText);
+			redBirdSprite.setScale(1.75, 1.75);
 			speed = 50;
 			break;
 	}
 
+
 }
+
+std::vector<Bird> Bird::createBirdVector(int numOfBrown, int numOfBlue, int numOfRed)
+{
+	std::vector<Bird> birdVect;
+
+	Bird brownBird(BirdType::Brown);
+	Bird blueBird(BirdType::Blue);
+	Bird redBird(BirdType::Red);
+
+	for (int i = 0; i < numOfBrown; ++i)
+	{
+		birdVect.push_back(brownBird);
+	}
+
+	for (int i = 0; i < numOfBlue; ++i)
+	{
+		birdVect.push_back(blueBird);
+	}
+
+	for (int i = 0; i < numOfRed; ++i)
+	{
+		birdVect.push_back(redBird);
+	}
+
+	return birdVect;
+
+}
+
+
+
 
 void Bird::draw(sf::RenderWindow& window)
 {
-	window.draw(brownBirdSprite);
-	window.draw(blueBirdSprite);
-	window.draw(redBirdSprite);
+	//window.draw(brownBirdSprite);
+	//window.draw(blueBirdSprite);
+	//window.draw(redBirdSprite);
+
+
+	/*trying to draw each indivdual bird in the vector to the screen
+	But im cimparing two different type Bird and BirdType*/
+
+
+	levelOneBirdVect = createBirdVector(15, 0, 1);
+	for (int i = 0; i < levelOneBirdVect.size(); ++i)
+	{
+		if (levelOneBirdVect[i] == BirdType::Brown)
+		{
+			//window.draw(brownBirdSprite)
+		}
+	}
 
 }
 
 void Bird::fly()
 {
+
+	//Stagger the position of each bird in BirdVectTest
+	//How do i access each individual bird sprite within the vector?
+
+	//std::vector<Bird> birdVectTest = createBirdVector(35, 0, 0);
+
+	//for (int i = 0; i < birdVectTest.size(); ++i)
+	//{
+
+	//}
+
 
 	if (frameCounter == 5)
 	{
@@ -115,11 +185,8 @@ void Bird::fly()
 	}
 	++frameCounter;
 	brownBirdSprite.setTextureRect(sf::IntRect(frame * 32, 0, 32, 32));
-	//setBirdPosition(700, 150);
-	//position.y = 150;
- // Cant have it here
-	position.x -= brownBirdVelX;
-	brownBirdSprite.setPosition(position);
+	birdVect1Position.x -= brownBirdVelX;
+	brownBirdSprite.setPosition(birdVect1Position);
 	
 
 	//Create frame counter and row iterate through the frames and half the birds fly
@@ -133,7 +200,7 @@ void Bird::setInitialBirdPosition(float x, float y)
 {
 	// blueBird.setPosition(position)
 	// 
-	brownBirdSprite.setPosition(x, y);
+	//brownBirdSprite.setPosition(x, y);
 }
 
 void Bird::setSpeed(const float& sp)

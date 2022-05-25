@@ -13,8 +13,10 @@ enum class BirdType
 class Bird
 {
 	public:
+		Bird();
 		Bird(const sf::RenderWindow& window);
 		Bird(BirdType);
+		std::vector<Bird> createBirdVector(int numOfBrown, int numOfBlue, int numOfRed);
 		void draw(sf::RenderWindow&);
 		void fly(); // PURE VIRTUAL?
 		void die(); // Stop animating the bird, have it fall off the screen,, rotate it on its head
@@ -29,7 +31,7 @@ class Bird
 
 	private:
 		float speed;
-		sf::Vector2f position;
+		sf::Vector2f birdVect1Position;
 		int width;
 		int height;
 		int frame = 0;
@@ -43,6 +45,8 @@ class Bird
 		sf::Sprite brownBirdSprite;
 		sf::Sprite blueBirdSprite;
 		sf::Sprite redBirdSprite;
+		std::vector<Bird> levelOneBirdVect;
+		//std::vector<Bird> birdVect1;
 
 
 };

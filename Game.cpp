@@ -29,14 +29,26 @@ Game::Game(const int width, const int height)
 {
     window.setFramerateLimit(60);
     initVariables();
+    //    gl_vec = std::unique_ptr<std::vector<MyClass>>(new std::vector<MyClass>());
+    //std::make_unique<std::vector<Bird>>(BirdType::Brown))
+    // std::make_unique<Bird>(BirdType::Brown)
+
+
+    //initial a vector full of birds and view them on the screen
 
 }
 
 void Game::initVariables()
+
 {
     gameWon = false;
     gameOver = false;
     timeRemaning = true;
+   // std::vector<Bird> birdVectMain = birdPtr->createBirdVector(35, 0, 1); // levelOneBirdVect add to class?
+
+    // Loop through the vector to draw?
+
+    
 }
 
 void Game::displayGameOver()
@@ -64,7 +76,6 @@ void Game::handleInputs()
                     break;
             }
         }
-
 }
 
 void Game::handleButtonEvents(sf::Event&)
@@ -74,7 +85,7 @@ void Game::handleButtonEvents(sf::Event&)
 void Game::updateObjects()
 {
 
-    std::vector<Bird> bridVect = { BirdType::Brown, BirdType::Red };
+    //std::vector<Bird> bridVect = { BirdType::Brown, BirdType::Red };
     //Set the position of the scope to that of the mouse
     player->setScopePosition(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y);
 
