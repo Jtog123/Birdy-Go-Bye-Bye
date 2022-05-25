@@ -28,6 +28,7 @@ class Game
 		bool gameWon;
 		bool gameOver;
 		bool timeRemaning;
+		std::vector<Bird>levelOneBirdVect;
 
 
 		// FUNCTIONS

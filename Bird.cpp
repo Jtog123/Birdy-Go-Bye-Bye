@@ -19,6 +19,10 @@ and in its draw, it'd do something like if(color == BirdColor::Red) {   ...set t
 
 Yeah, but then it's semantically not only about the appearance so I'd name it a bit different:  enum class BirdType { Red, Brown, Blue}
 
+
+REMINDER 
+Each Bird instance I create is one individual Bird
+
 */
 
 
@@ -69,42 +73,42 @@ Bird::Bird(const sf::RenderWindow& window)
 }
 
 Bird::Bird(BirdType bird_type)
-	:birdVect1Position(700,150) // vector 1 position, where to create vector and use them?
+	:vectOnePosition(700,150) // vector 1 position, where to create vector and use them?
 {
 	switch (bird_type)
 	{
 		case BirdType::Brown:
-			if (!brownBirdText.loadFromFile("Sprites/BrownBirdSheet.png"))
+			if (!birdText.loadFromFile("Sprites/BrownBirdSheet.png"))
 			{
 				std::cout << "Could not load Brown Birds" << std::endl;
 				return;
 			}
-			brownBirdSprite.setTexture(brownBirdText);
-			brownBirdSprite.setScale(1.75, 1.75);
+			birdSprite.setTexture(birdText);
+			birdSprite.setScale(1.75, 1.75);
 			//brownBirdSprite.setTextureRect(sf::IntRect(0, 0, 32, 32));
 			//brownBirdSprite.setPosition(position);
 			speed = 10;
 			break;
 
 		case BirdType::Blue:
-			if (!blueBirdText.loadFromFile("Sprites/BlueBirdSheet.png"))
+			if (!birdText.loadFromFile("Sprites/BlueBirdSheet.png"))
 			{
 				std::cout << "Could not load Blue Birds" << std::endl;
 				return;
 			}
-			blueBirdSprite.setTexture(blueBirdText);
-			blueBirdSprite.setScale(1.75, 1.75);
+			birdSprite.setTexture(birdText);
+			birdSprite.setScale(1.75, 1.75);
 			speed = 25;
 			break;
 
 		case BirdType::Red:
-			if (!redBirdText.loadFromFile("Sprites/BirdSheet1.png"))
+			if (!birdText.loadFromFile("Sprites/BirdSheet1.png"))
 			{
 				std::cout << "Could not load Red Birds" << std::endl;
 				return;
 			}
-			redBirdSprite.setTexture(redBirdText);
-			redBirdSprite.setScale(1.75, 1.75);
+			birdSprite.setTexture(birdText);
+			birdSprite.setScale(1.75, 1.75);
 			speed = 50;
 			break;
 	}
@@ -148,11 +152,10 @@ void Bird::draw(sf::RenderWindow& window)
 	//window.draw(blueBirdSprite);
 	//window.draw(redBirdSprite);
 
-
-	/*trying to draw each indivdual bird in the vector to the screen
-	But im cimparing two different type Bird and BirdType*/
+	window.draw(birdSprite);
 
 
+	/*
 	levelOneBirdVect = createBirdVector(15, 0, 1);
 	for (int i = 0; i < levelOneBirdVect.size(); ++i)
 	{
@@ -162,6 +165,7 @@ void Bird::draw(sf::RenderWindow& window)
 		}
 	}
 
+	*/
 }
 
 void Bird::fly()
@@ -184,9 +188,9 @@ void Bird::fly()
 		frameCounter = 0;
 	}
 	++frameCounter;
-	brownBirdSprite.setTextureRect(sf::IntRect(frame * 32, 0, 32, 32));
-	birdVect1Position.x -= brownBirdVelX;
-	brownBirdSprite.setPosition(birdVect1Position);
+	birdSprite.setTextureRect(sf::IntRect(frame * 32, 0, 32, 32));
+	vectOnePosition.x -= birdVelX;
+	birdSprite.setPosition(vectOnePosition);
 	
 
 	//Create frame counter and row iterate through the frames and half the birds fly
@@ -211,4 +215,9 @@ void Bird::setSpeed(const float& sp)
 float Bird::getSpeed() const
 {
 	return speed;
+}
+
+sf::Sprite Bird::getSprite() const
+{
+	return birdSprite;
 }

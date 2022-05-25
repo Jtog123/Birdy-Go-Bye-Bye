@@ -14,6 +14,14 @@
     {
         birdVect[i] = brownB;
     }
+
+    You don't need to colour them
+Just load a different file depending on the bird type
+
+you also have 3 sets of the same variable, one for each color type, but a single bird should only have 1 color, 
+so it makes sense it should only have 1 of each of those variables and they just be agnostic to what color it is since that is defined by the BirdType
+The Bird class should not know nor care how many birds you create nor whether you make a container of them.
+then in the game (outside of the Bird class) you can do something like std::vector<Bird> birds to create multiple birds
 */
 
 
@@ -44,7 +52,7 @@ void Game::initVariables()
     gameWon = false;
     gameOver = false;
     timeRemaning = true;
-   // std::vector<Bird> birdVectMain = birdPtr->createBirdVector(35, 0, 1); // levelOneBirdVect add to class?
+    levelOneBirdVect = birdPtr->createBirdVector(15, 0, 1); // levelOneBirdVect add to class?
 
     // Loop through the vector to draw?
 
@@ -114,7 +122,6 @@ void Game::updateObjects()
         player->setScopePosition(player->getScopePosition().x, window.getSize().y - 15);
     }
 
-    //Set Bird Row 1 position
     birdPtr->fly();
 
 }
@@ -125,6 +132,14 @@ void Game::drawObjects()
 
     player->draw(window); //this should draw scope
     birdPtr->draw(window);
+
+    //ALL BIRDS ARE BEING DRAW NOW STAGGER THEIR POSITIONS. IN UPDATEOBJECTS?
+    for (int i = 0; i < levelOneBirdVect.size(); ++i)
+    {
+        window.draw(levelOneBirdVect[i].getSprite());
+    }
+
+
 
     window.display();
 

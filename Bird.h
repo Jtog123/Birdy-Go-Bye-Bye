@@ -28,25 +28,26 @@ class Bird
 		int getHeight() const;
 		void setSpeed(const float&);
 		float getSpeed() const;
+		sf::Sprite getSprite() const;
 
 	private:
 		float speed;
-		sf::Vector2f birdVect1Position;
+		sf::Vector2f vectOnePosition;
 		int width;
 		int height;
 		int frame = 0;
 		int frameCounter = 0;
-		float brownBirdVelX = 1.5f;
-		int blueBirdVelX = 0;
-		int redBirdVelX = 0;
-		sf::Texture brownBirdText;
-		sf::Texture blueBirdText;
-		sf::Texture redBirdText;
-		sf::Sprite brownBirdSprite;
-		sf::Sprite blueBirdSprite;
-		sf::Sprite redBirdSprite;
-		std::vector<Bird> levelOneBirdVect;
-		//std::vector<Bird> birdVect1;
+		float birdVelX = 1.5f;
+		sf::Texture birdText;
+		sf::Sprite birdSprite;
+
+
+
+		//sf::Texture blueBirdText;
+		//sf::Texture redBirdText;
+		
+		//sf::Sprite blueBirdSprite;
+		//sf::Sprite redBirdSprite;
 
 
 };
