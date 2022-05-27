@@ -16,7 +16,6 @@ class Bird
 		Bird();
 		Bird(const sf::RenderWindow& window);
 		Bird(BirdType);
-		std::vector<Bird> createBirdVector(int numOfBrown, int numOfBlue, int numOfRed);
 		void draw(sf::RenderWindow&);
 		void fly(); // PURE VIRTUAL?
 		void die(); // Stop animating the bird, have it fall off the screen,, rotate it on its head

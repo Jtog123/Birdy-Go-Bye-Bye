@@ -7,22 +7,7 @@
 //#include "SFML/Network.hpp"
 #include "Game.h"
 
-/*
-*     Bird brownB(BirdType::Brown);
-    std::vector<Bird> birdVect(50);
-    for (int i = 0; i < birdVect.size(); ++i)
-    {
-        birdVect[i] = brownB;
-    }
 
-    You don't need to colour them
-Just load a different file depending on the bird type
-
-you also have 3 sets of the same variable, one for each color type, but a single bird should only have 1 color, 
-so it makes sense it should only have 1 of each of those variables and they just be agnostic to what color it is since that is defined by the BirdType
-The Bird class should not know nor care how many birds you create nor whether you make a container of them.
-then in the game (outside of the Bird class) you can do something like std::vector<Bird> birds to create multiple birds
-*/
 
 
 Game::Game()
@@ -54,12 +39,15 @@ void Game::initVariables()
     gameWon = false;
     gameOver = false;
     timeRemaning = true;
-    levelOneBirdVect = birdPtr->createBirdVector(5, 0, 0); // levelOneBirdVect add to class?
+    levelOneBirdVect = createBirdVector(5, 0, 0); // instance of class? Being destroyed?
+    //When an instance of a class is destroyed all its members are destroyed as well
 
     // Loop through the vector to draw?
 
     
 }
+
+
 
 void Game::displayGameOver()
 {
@@ -131,16 +119,15 @@ void Game::updateObjects()
 
 void Game::drawObjects()
 {
-    window.clear(sf::Color::White);
+    window.clear(sf::Color::Red);
 
     player->draw(window); //this should draw scope
    // birdPtr->draw(window);
 
-
     //ALL BIRDS ARE BEING DRAW NOW STAGGER THEIR POSITIONS. IN UPDATEOBJECTS?
     for (int i = 0; i < levelOneBirdVect.size(); ++i)
     {
-        window.draw(levelOneBirdVect[i].getSprite());
+       window.draw(levelOneBirdVect[i].getSprite());
     }
 
     window.display();
@@ -153,6 +140,9 @@ void Game::startTimer()
 
 void Game::run()
 {
+    //Add texture here?
+
+    
 
     while (window.isOpen())
     {
@@ -176,8 +166,36 @@ void Game::run()
 
         drawObjects();
 
+        birdPtr->fly();
+
     }
 
+}
+
+std::vector<Bird> Game::createBirdVector(int numOfBrown, int numOfBlue, int numOfRed)
+{
+    std::vector<Bird> birdVect;
+
+    //Bird brownBird(BirdType::Brown);
+    //Bird blueBird(BirdType::Blue);
+    //Bird redBird(BirdType::Red);
+
+    for (int i = 0; i < numOfBrown; ++i)
+    {
+        birdVect.push_back(brownBird);
+    }
+
+    for (int i = 0; i < numOfBlue; ++i)
+    {
+        birdVect.push_back(blueBird);
+    }
+
+    for (int i = 0; i < numOfRed; ++i)
+    {
+        birdVect.push_back(redBird);
+    }
+
+    return birdVect;
 }
 
 

@@ -19,6 +19,7 @@ class Game
 		Game(const int,const int);
 		//virtual ~Game(); // Remove Destructor?
 		void run();
+		std::vector<Bird> createBirdVector(int numOfBrown, int numOfBlue, int numOfRed);
 
 	private:
 		sf::RenderWindow window;
@@ -28,7 +29,11 @@ class Game
 		bool gameWon;
 		bool gameOver;
 		bool timeRemaning;
-		std::vector<Bird>levelOneBirdVect;
+		std::vector<Bird> levelOneBirdVect;
+		Bird brownBird = BirdType::Brown;
+		Bird blueBird = BirdType::Blue;
+		Bird redBird = BirdType::Red;
+
 
 
 		// FUNCTIONS
