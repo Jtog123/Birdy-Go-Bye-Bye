@@ -20,27 +20,10 @@ Bird::Bird(const sf::RenderWindow& window)
 }
 
 /*
+I'm only able to see one bird. tbe only things that change happen immediatley upon its construction
+after that I get nothing from my other functions.
 
-
-5/27/22
-
-If you create the bird texture outside of the Bird object, you can keep it around indefinitely and just assign each bird to use the texture
-you should probably also be creating the vector of birds outside of the Bird object rather than in a method of Bird
-
-probably won't even need the bird type if all that's changing is the color, just use a different texture or modify the color of the sprite
-
-void StartGame() {
-  sf::Texture birdTexture;
-  birdTexture.loadFromFile("./bird.png");
-
-  vector<Bird> birds;
-  for (int i=0; i<numBrownBirds; i++)
-	birds.emplace_back(BirdType::Brown, birdTexture);
-  // blue birds...
-  // red birds...
-
-  // do game loop
-}
+I dont know if I'm drawing a vector or a single sprite
 
 */
 
@@ -90,22 +73,22 @@ Bird::Bird(BirdType bird_type)
 
 void Bird::draw(sf::RenderWindow& window)
 {
-	window.draw(birdSprite);
-
+	//window.draw(birdSprite);
 }
 
 void Bird::fly()
 {
-
+	/*
 	if (frameCounter == 5)
 	{
 		frame = (frame + 1) % 8;
 		frameCounter = 0;
 	}
-	++frameCounter;
-	birdSprite.setTextureRect(sf::IntRect(frame * 32, 0, 32, 32));
-	position.x -= birdVelX;
-	//birdSprite.setPosition(position);
+	*/
+	//++frameCounter;
+	//birdSprite.setTextureRect(sf::IntRect(frame * 32, 0, 32, 32));
+	//position.x -= birdVelX;
+	
 }
 
 void Bird::setBirdPosition(sf::Vector2f pos)
@@ -114,11 +97,12 @@ void Bird::setBirdPosition(sf::Vector2f pos)
 	// 
 	//brownBirdSprite.setPosition(x, y);
 }
-
+/*
 sf::Vector2f Bird::getPosition() const
 {
 	return position;
 }
+*/
 
 
 sf::Sprite Bird::getSprite() const

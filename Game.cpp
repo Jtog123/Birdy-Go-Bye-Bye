@@ -8,6 +8,36 @@
 #include "Game.h"
 
 
+/*
+Im not able to make adjustments to the sprite from any other part of the game except for in the constructor
+
+The only part of the code in my game class that actually is doing something is this, where im able to draw the bird.
+
+void Game::drawObjects()
+{
+    for (int i = 0; i < levelOneBirdVect.size(); ++i)
+    {
+      window.draw(levelOneBirdVect[i].getSprite());
+    }
+
+    window.display();
+}
+
+
+But I cant tell if im actually drawing more than one bird.
+
+
+Tracing this has been really hard. Things I thought would work aren't for some reason.
+Like for instance I put this in my games updateobjects function and it didnt do anything.
+
+    for(int i = 0 ; i < levelOneBirdVect.size(); ++i)
+    {
+        levelOneBirdVect[i].getSprite().setPosition(700, 150);
+    }
+
+Why does the loop above draw the sprite, but the loop here isnt adjusting position? 
+I dont know where and (even worse) why I'm losing access to my sprites.
+*/
 
 
 Game::Game()
@@ -17,8 +47,8 @@ Game::Game()
 
 Game::Game(const int width, const int height)
     : window(sf::VideoMode(width,height), "Speed Hunter"),
-    player(std::make_unique<Player>(window)),
-    birdPtr(std::make_unique<Bird>())
+    player(std::make_unique<Player>(window))
+    //birdPtr(std::make_unique<Bird>())
 {
     window.setFramerateLimit(60);
     initVariables();
@@ -39,12 +69,8 @@ void Game::initVariables()
     gameWon = false;
     gameOver = false;
     timeRemaning = true;
-    levelOneBirdVect = createBirdVector(5, 0, 0); // instance of class? Being destroyed?
-    //When an instance of a class is destroyed all its members are destroyed as well
+    levelOneBirdVect = createBirdVector(5, 0, 0); // why does this not function properly?
 
-    // Loop through the vector to draw?
-
-    
 }
 
 
@@ -112,6 +138,10 @@ void Game::updateObjects()
         player->setScopePosition(player->getScopePosition().x, window.getSize().y - 15);
     }
 
+    for(int i = 0 ; i < levelOneBirdVect.size(); ++i)
+    {
+        levelOneBirdVect[i].getSprite().setPosition(700, 150);
+    }
 
     birdPtr->fly();
 
@@ -122,14 +152,14 @@ void Game::drawObjects()
     window.clear(sf::Color::Red);
 
     player->draw(window); //this should draw scope
-   // birdPtr->draw(window);
 
-    //ALL BIRDS ARE BEING DRAW NOW STAGGER THEIR POSITIONS. IN UPDATEOBJECTS?
+    //Birds being drawn? Stagger their positions?
+
     for (int i = 0; i < levelOneBirdVect.size(); ++i)
     {
-       window.draw(levelOneBirdVect[i].getSprite());
+      window.draw(levelOneBirdVect[i].getSprite());
     }
-
+    
     window.display();
 
 }
@@ -164,9 +194,10 @@ void Game::run()
             return;
         }
 
+        birdPtr->fly();
+
         drawObjects();
 
-        birdPtr->fly();
 
     }
 
@@ -175,10 +206,6 @@ void Game::run()
 std::vector<Bird> Game::createBirdVector(int numOfBrown, int numOfBlue, int numOfRed)
 {
     std::vector<Bird> birdVect;
-
-    //Bird brownBird(BirdType::Brown);
-    //Bird blueBird(BirdType::Blue);
-    //Bird redBird(BirdType::Red);
 
     for (int i = 0; i < numOfBrown; ++i)
     {
