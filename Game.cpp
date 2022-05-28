@@ -39,7 +39,8 @@ void Game::initVariables()
     gameWon = false;
     gameOver = false;
     timeRemaning = true;
-    levelOneBirdVect = createBirdVector(5, 0, 0); // why does this not function properly?
+    levelOneBirdVect = createBirdVector(7, 3, 1); // why does this not function properly?
+    
 
 }
 
@@ -108,10 +109,14 @@ void Game::updateObjects()
         player->setScopePosition(player->getScopePosition().x, window.getSize().y - 15);
     }
 
+
+    int position = 700;
     for(int i = 0 ; i < levelOneBirdVect.size(); ++i)
     {
-        levelOneBirdVect[i].getSprite().setPosition(700, 150);
+        levelOneBirdVect[i].getSprite().setPosition(position, 150);
+        position -= 60;
     }
+
 
     birdPtr->fly();
 
@@ -119,16 +124,18 @@ void Game::updateObjects()
 
 void Game::drawObjects()
 {
-    window.clear(sf::Color::Red);
+    window.clear(sf::Color::White);
 
-    player->draw(window); //this should draw scope
 
     //Birds being drawn? Stagger their positions?
-
+    
     for (int i = 0; i < levelOneBirdVect.size(); ++i)
     {
-      window.draw(levelOneBirdVect[i].getSprite());
+        window.draw(levelOneBirdVect[i].getSprite());
     }
+
+    player->draw(window); //this should draw scope
+    
     
     window.display();
 
@@ -152,6 +159,7 @@ void Game::run()
         updateObjects();
 
 
+
         if (gameOver)
         {
             displayGameOver();
@@ -164,7 +172,7 @@ void Game::run()
             return;
         }
 
-        birdPtr->fly();
+        //birdPtr->fly();
 
         drawObjects();
 
@@ -175,11 +183,12 @@ void Game::run()
 
 std::vector<Bird> Game::createBirdVector(int numOfBrown, int numOfBlue, int numOfRed)
 {
+
     std::vector<Bird> birdVect;
 
-    for (int i = 0; i < numOfBrown; ++i)
+    for (int i = 0; i < numOfRed; ++i)
     {
-        birdVect.push_back(brownBird);
+        birdVect.push_back(redBird);
     }
 
     for (int i = 0; i < numOfBlue; ++i)
@@ -187,10 +196,12 @@ std::vector<Bird> Game::createBirdVector(int numOfBrown, int numOfBlue, int numO
         birdVect.push_back(blueBird);
     }
 
-    for (int i = 0; i < numOfRed; ++i)
+    for (int i = 0; i < numOfBrown; ++i)
     {
-        birdVect.push_back(redBird);
+        birdVect.push_back(brownBird);
     }
+
+    std::random_shuffle(birdVect.begin(), birdVect.end());
 
     return birdVect;
 }

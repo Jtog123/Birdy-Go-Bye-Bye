@@ -21,7 +21,7 @@ class Bird
 		void die(); // Stop animating the bird, have it fall off the screen,, rotate it on its head
 		void setBirdPosition(sf::Vector2f pos);
 		sf::Vector2f getPosition() const;
-		sf::Sprite getSprite() const;
+		sf::Sprite& getSprite();
 
 	private:
 		sf::Vector2f position; //all birds need a position on the screen

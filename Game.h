@@ -38,6 +38,8 @@ class Game
 		// FUNCTIONS
 		std::vector<Bird> createBirdVector(int numOfBrown, int numOfBlue, int numOfRed);
 
+		void startBirdFlight();
+
 		void initVariables();
 
 		void displayGameOver();

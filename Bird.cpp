@@ -53,6 +53,7 @@ Bird::Bird(BirdType bird_type)
 			}
 			birdSprite.setTexture(birdText);
 			birdSprite.setScale(1.75, 1.75);
+			birdSprite.setTextureRect(sf::IntRect(0, 0, 32, 32));
 			break;
 
 		case BirdType::Red:
@@ -63,6 +64,7 @@ Bird::Bird(BirdType bird_type)
 			}
 			birdSprite.setTexture(birdText);
 			birdSprite.setScale(1.75, 1.75);
+			birdSprite.setTextureRect(sf::IntRect(0, 0, 32, 32));
 			break;
 			
 	}
@@ -105,7 +107,7 @@ sf::Vector2f Bird::getPosition() const
 */
 
 
-sf::Sprite Bird::getSprite() const
+sf::Sprite& Bird::getSprite()
 {
 	return birdSprite;
 }
