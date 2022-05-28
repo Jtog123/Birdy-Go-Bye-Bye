@@ -8,36 +8,6 @@
 #include "Game.h"
 
 
-/*
-Im not able to make adjustments to the sprite from any other part of the game except for in the constructor
-
-The only part of the code in my game class that actually is doing something is this, where im able to draw the bird.
-
-void Game::drawObjects()
-{
-    for (int i = 0; i < levelOneBirdVect.size(); ++i)
-    {
-      window.draw(levelOneBirdVect[i].getSprite());
-    }
-
-    window.display();
-}
-
-
-But I cant tell if im actually drawing more than one bird.
-
-
-Tracing this has been really hard. Things I thought would work aren't for some reason.
-Like for instance I put this in my games updateobjects function and it didnt do anything.
-
-    for(int i = 0 ; i < levelOneBirdVect.size(); ++i)
-    {
-        levelOneBirdVect[i].getSprite().setPosition(700, 150);
-    }
-
-Why does the loop above draw the sprite, but the loop here isnt adjusting position? 
-I dont know where and (even worse) why I'm losing access to my sprites.
-*/
 
 
 Game::Game()
