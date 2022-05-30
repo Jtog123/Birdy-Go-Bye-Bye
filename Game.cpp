@@ -17,8 +17,8 @@ Game::Game()
 
 Game::Game(const int width, const int height)
     : window(sf::VideoMode(width,height), "Speed Hunter"),
-    player(std::make_unique<Player>(window))
-    //birdPtr(std::make_unique<Bird>())
+    player(std::make_unique<Player>(window)),
+    birdPtr(std::make_unique<Bird>())
 {
     window.setFramerateLimit(60);
     initVariables();
@@ -40,6 +40,9 @@ void Game::initVariables()
     gameOver = false;
     timeRemaning = true;
     levelOneBirdVect = createBirdVector(7, 3, 1); // why does this not function properly?
+    levelOneVectPos.x = 700;
+    levelOneVectPos.y = 150;
+
     
 
 }
@@ -109,16 +112,16 @@ void Game::updateObjects()
         player->setScopePosition(player->getScopePosition().x, window.getSize().y - 15);
     }
 
-
-    int position = 700;
-    for(int i = 0 ; i < levelOneBirdVect.size(); ++i)
+    // Used to spread the birds distances apart;
+    for (int i = 0; i < levelOneBirdVect.size(); ++i)
     {
-        levelOneBirdVect[i].getSprite().setPosition(position, 150);
-        position -= 60;
+        levelOneBirdVect[i].getSprite().setPosition(levelOneVectPos);
+        levelOneVectPos.x -= 60.f;
     }
 
 
-    birdPtr->fly();
+    startBirdFlight();
+
 
 }
 
@@ -126,15 +129,13 @@ void Game::drawObjects()
 {
     window.clear(sf::Color::White);
 
-
-    //Birds being drawn? Stagger their positions?
     
     for (int i = 0; i < levelOneBirdVect.size(); ++i)
     {
         window.draw(levelOneBirdVect[i].getSprite());
     }
 
-    player->draw(window); //this should draw scope
+    player->draw(window);
     
     
     window.display();
@@ -158,8 +159,6 @@ void Game::run()
 
         updateObjects();
 
-
-
         if (gameOver)
         {
             displayGameOver();
@@ -172,7 +171,6 @@ void Game::run()
             return;
         }
 
-        //birdPtr->fly();
 
         drawObjects();
 
@@ -204,6 +202,25 @@ std::vector<Bird> Game::createBirdVector(int numOfBrown, int numOfBlue, int numO
     std::random_shuffle(birdVect.begin(), birdVect.end());
 
     return birdVect;
+}
+
+void Game::startBirdFlight()
+{
+
+    if (frameCounter == 5)
+    {
+        frame = (frame + 1) % 8;
+        frameCounter = 0;
+    }
+
+    ++frameCounter;
+    for (int i = 0; i < levelOneBirdVect.size(); ++i)
+    {
+        levelOneBirdVect[i].getSprite().setTextureRect(sf::IntRect(frame * 32, 0, 32, 32));
+    }
+
+   levelOneVectPos.x -= .00000000000000000000001f;
+
 }
 
 

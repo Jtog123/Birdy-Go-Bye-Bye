@@ -30,6 +30,9 @@ I dont know if I'm drawing a vector or a single sprite
 Bird::Bird(BirdType bird_type)
 	// vector 1 position, where to create vector and use them?
 {
+	position.x = 700;
+	position.y = 150;
+
 	switch (bird_type)
 	{
 		
@@ -95,19 +98,18 @@ void Bird::fly()
 
 void Bird::setBirdPosition(sf::Vector2f pos)
 {
-	// blueBird.setPosition(position)
-	// 
-	//brownBirdSprite.setPosition(x, y);
+	birdSprite.setPosition(pos);
 }
-/*
-sf::Vector2f Bird::getPosition() const
-{
-	return position;
-}
-*/
+
+
 
 
 sf::Sprite& Bird::getSprite()
 {
 	return birdSprite;
+}
+
+float Bird::getVelocity() const
+{
+	return birdVelX;
 }

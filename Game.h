@@ -32,6 +32,10 @@ class Game
 		Bird brownBird = BirdType::Brown;
 		Bird blueBird = BirdType::Blue;
 		Bird redBird = BirdType::Red;
+		int frame = 0;
+		int frameCounter = 0;
+		float xPosVect1;
+		sf::Vector2f levelOneVectPos;
 
 
 

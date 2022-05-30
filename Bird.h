@@ -20,16 +20,19 @@ class Bird
 		void fly(); // PURE VIRTUAL?
 		void die(); // Stop animating the bird, have it fall off the screen,, rotate it on its head
 		void setBirdPosition(sf::Vector2f pos);
-		sf::Vector2f getPosition() const;
+		sf::Vector2f getBirdPosition();
 		sf::Sprite& getSprite();
+		float getVelocity() const;
+
 
 	private:
 		sf::Vector2f position; //all birds need a position on the screen
-		int frame = 0;
-		int frameCounter = 0;
+		//int frame = 0;
+		//int frameCounter = 0;
 		float birdVelX = 1.5f;
 		sf::Texture birdText;
 		sf::Sprite birdSprite;
+
 
 
 };
