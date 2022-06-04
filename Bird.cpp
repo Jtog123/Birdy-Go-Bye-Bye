@@ -30,8 +30,6 @@ I dont know if I'm drawing a vector or a single sprite
 Bird::Bird(BirdType bird_type)
 	// vector 1 position, where to create vector and use them?
 {
-	position.x = 700;
-	position.y = 150;
 
 	switch (bird_type)
 	{
@@ -43,7 +41,6 @@ Bird::Bird(BirdType bird_type)
 				return;
 			}
 			birdSprite.setTexture(birdText);
-			birdSprite.setScale(1.75, 1.75);
 			birdSprite.setTextureRect(sf::IntRect(0, 0, 32, 32));
 			break;
 			
@@ -55,7 +52,6 @@ Bird::Bird(BirdType bird_type)
 				return;
 			}
 			birdSprite.setTexture(birdText);
-			birdSprite.setScale(1.75, 1.75);
 			birdSprite.setTextureRect(sf::IntRect(0, 0, 32, 32));
 			break;
 
@@ -66,7 +62,6 @@ Bird::Bird(BirdType bird_type)
 				return;
 			}
 			birdSprite.setTexture(birdText);
-			birdSprite.setScale(1.75, 1.75);
 			birdSprite.setTextureRect(sf::IntRect(0, 0, 32, 32));
 			break;
 			

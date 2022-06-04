@@ -28,15 +28,16 @@ class Game
 		bool gameWon;
 		bool gameOver;
 		bool timeRemaning;
-		std::vector<Bird> levelOneBirdVect;
+		std::vector<Bird> birdVectOne;
 		Bird brownBird = BirdType::Brown;
 		Bird blueBird = BirdType::Blue;
 		Bird redBird = BirdType::Red;
 		int frame = 0;
 		int frameCounter = 0;
 		float xPosVect1;
-		sf::Vector2f levelOneVectPos;
-		sf::Vector2f endPos;
+		sf::Vector2f vectOnePos;
+		std::vector<Bird> birdVectTwo;
+		sf::Vector2f vectTwoPos;
 
 
 

@@ -23,14 +23,21 @@ Game::Game(const int width, const int height)
     window.setFramerateLimit(60);
     initVariables();
 
-    // Set initial Position
-    for (int i = 0; i < levelOneBirdVect.size(); ++i)
+    // Set initial Position for first vector of birds
+    for (int i = 0; i < birdVectOne.size(); ++i)
     {
-        levelOneBirdVect[i].getSprite().setPosition(levelOneVectPos.x,levelOneVectPos.y);
-        levelOneVectPos.x -= 60.f;
-
+        birdVectOne[i].getSprite().setPosition(vectOnePos.x, vectOnePos.y);
+        birdVectOne[i].getSprite().setScale(1.75, 1.75);
+        vectOnePos.x -= 60.f;
     }
 
+
+    for (int i = 0; i < birdVectTwo.size(); ++i)
+    {
+        birdVectTwo[i].getSprite().setPosition(vectTwoPos); // set pos
+        birdVectTwo[i].getSprite().setScale(-1.75, 1.75);
+        vectTwoPos.x -= 60.f;
+    }
 
 
 }
@@ -41,14 +48,14 @@ void Game::initVariables()
     gameWon = false;
     gameOver = false;
     timeRemaning = true;
-    levelOneBirdVect = createBirdVector(7, 3, 1); // why does this not function properly?
+    birdVectOne = createBirdVector(7, 3, 1); // why does this not function properly?
+    birdVectTwo = createBirdVector(13, 0, 0);
 
-    levelOneVectPos.x = 700;
-    levelOneVectPos.y = 150;
+    vectOnePos.x = 1500;
+    vectOnePos.y = 150;
 
-    endPos.x = -100;
-    endPos.y = 150;
-
+    vectTwoPos.x = -500;
+    vectTwoPos.y = 350;
 
 
 }
@@ -118,19 +125,6 @@ void Game::updateObjects()
         player->setScopePosition(player->getScopePosition().x, window.getSize().y - 15);
     }
 
-    // Used to spread the birds distances apart;
-    /*
-    sf::Vector2f tempPos(700, 150);
-    for (int i = 0; i < levelOneBirdVect.size(); ++i)
-    {
-        levelOneBirdVect[i].getSprite().setPosition(tempPos);
-        tempPos.x -= 60.f;
-
-    }
-    */
-
-
-
 
     startBirdFlight();
 
@@ -142,9 +136,14 @@ void Game::drawObjects()
     window.clear(sf::Color::White);
 
 
-    for (int i = 0; i < levelOneBirdVect.size(); ++i)
+    for (int i = 0; i < birdVectOne.size(); ++i)
     {
-        window.draw(levelOneBirdVect[i].getSprite());
+        window.draw(birdVectOne[i].getSprite());
+    }
+
+    for (int i = 0; i < birdVectTwo.size(); ++i)
+    {
+        window.draw(birdVectTwo[i].getSprite());
     }
 
     player->draw(window);
@@ -224,30 +223,30 @@ void Game::startBirdFlight()
         frame = (frame + 1) % 8;
         frameCounter = 0;
     }
-
     ++frameCounter;
-    for (int i = 0; i < levelOneBirdVect.size(); ++i)
+
+    /* SETS TEXTURE RECT AND MOVES FIRST VECTOR OF BIRDS ACROSS SCREEN */
+    for (int i = 0; i < birdVectOne.size(); ++i)
     {
-        levelOneBirdVect[i].getSprite().setTextureRect(sf::IntRect(frame * 32, 0, 32, 32));
+        birdVectOne[i].getSprite().setTextureRect(sf::IntRect(frame * 32, 0, 32, 32));
+    }
+
+    for (int i = 0; i < birdVectOne.size(); ++i)
+    {
+        birdVectOne[i].getSprite().move(-1.5, 0);
     }
 
 
-
-    float counter = 500;
-    while (counter > endPos.x)
+    /* SETS TEXTURE RECT AND MOVES SECOND VECTOR OF BIRDS ACROSS SCREEN */
+    for (int i = 0; i < birdVectTwo.size(); ++i)
     {
-        for (int i = 0; i < levelOneBirdVect.size(); ++i)
-        {
-            float curPos = levelOneBirdVect[i].getSprite().getPosition().x;
-            curPos -= 1.f;
-            levelOneBirdVect[i].getSprite().setPosition(curPos, levelOneVectPos.y);
-        }
-        counter -= 1;
+        birdVectTwo[i].getSprite().setTextureRect(sf::IntRect(frame * 32, 0, 32, 32));
     }
-    
-    
 
-    //How do I keep the birds spread out while also having them move across the screen?
+    for (int i = 0; i < birdVectTwo.size(); ++i)
+    {
+        birdVectTwo[i].getSprite().move(1.5, 0);
+    }
 
 
 }
