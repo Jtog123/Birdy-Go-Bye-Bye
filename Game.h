@@ -36,6 +36,7 @@ class Game
 		int frameCounter = 0;
 		float xPosVect1;
 		sf::Vector2f levelOneVectPos;
+		sf::Vector2f endPos;
 
 
 

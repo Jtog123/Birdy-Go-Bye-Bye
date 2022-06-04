@@ -16,20 +16,22 @@ Game::Game()
 }
 
 Game::Game(const int width, const int height)
-    : window(sf::VideoMode(width,height), "Speed Hunter"),
+    : window(sf::VideoMode(width, height), "Speed Hunter"),
     player(std::make_unique<Player>(window)),
     birdPtr(std::make_unique<Bird>())
 {
     window.setFramerateLimit(60);
     initVariables();
 
+    // Set initial Position
+    for (int i = 0; i < levelOneBirdVect.size(); ++i)
+    {
+        levelOneBirdVect[i].getSprite().setPosition(levelOneVectPos.x,levelOneVectPos.y);
+        levelOneVectPos.x -= 60.f;
 
-    //    gl_vec = std::unique_ptr<std::vector<MyClass>>(new std::vector<MyClass>());
-    //std::make_unique<std::vector<Bird>>(BirdType::Brown))
-    // std::make_unique<Bird>(BirdType::Brown)
+    }
 
 
-    //initial a vector full of birds and view them on the screen
 
 }
 
@@ -40,10 +42,14 @@ void Game::initVariables()
     gameOver = false;
     timeRemaning = true;
     levelOneBirdVect = createBirdVector(7, 3, 1); // why does this not function properly?
+
     levelOneVectPos.x = 700;
     levelOneVectPos.y = 150;
 
-    
+    endPos.x = -100;
+    endPos.y = 150;
+
+
 
 }
 
@@ -51,7 +57,7 @@ void Game::initVariables()
 
 void Game::displayGameOver()
 {
-    
+
 }
 
 void Game::displayGameWon()
@@ -64,16 +70,16 @@ void Game::pollWindowEvents(sf::Event& event)
 
 void Game::handleInputs()
 {
-        sf::Event event;
-        while (window.pollEvent(event))
+    sf::Event event;
+    while (window.pollEvent(event))
+    {
+        switch (event.type)
         {
-            switch (event.type)
-            {
-                case sf::Event::Closed:
-                    window.close();
-                    break;
-            }
+        case sf::Event::Closed:
+            window.close();
+            break;
         }
+    }
 }
 
 void Game::handleButtonEvents(sf::Event&)
@@ -113,11 +119,17 @@ void Game::updateObjects()
     }
 
     // Used to spread the birds distances apart;
+    /*
+    sf::Vector2f tempPos(700, 150);
     for (int i = 0; i < levelOneBirdVect.size(); ++i)
     {
-        levelOneBirdVect[i].getSprite().setPosition(levelOneVectPos);
-        levelOneVectPos.x -= 60.f;
+        levelOneBirdVect[i].getSprite().setPosition(tempPos);
+        tempPos.x -= 60.f;
+
     }
+    */
+
+
 
 
     startBirdFlight();
@@ -129,15 +141,15 @@ void Game::drawObjects()
 {
     window.clear(sf::Color::White);
 
-    
+
     for (int i = 0; i < levelOneBirdVect.size(); ++i)
     {
         window.draw(levelOneBirdVect[i].getSprite());
     }
 
     player->draw(window);
-    
-    
+
+
     window.display();
 
 }
@@ -150,7 +162,7 @@ void Game::run()
 {
     //Add texture here?
 
-    
+
 
     while (window.isOpen())
     {
@@ -219,10 +231,23 @@ void Game::startBirdFlight()
         levelOneBirdVect[i].getSprite().setTextureRect(sf::IntRect(frame * 32, 0, 32, 32));
     }
 
-   levelOneVectPos.x -= .00000000000000000000001f;
+
+
+    float counter = 500;
+    while (counter > endPos.x)
+    {
+        for (int i = 0; i < levelOneBirdVect.size(); ++i)
+        {
+            float curPos = levelOneBirdVect[i].getSprite().getPosition().x;
+            curPos -= 1.f;
+            levelOneBirdVect[i].getSprite().setPosition(curPos, levelOneVectPos.y);
+        }
+        counter -= 1;
+    }
+    
+    
+
+    //How do I keep the birds spread out while also having them move across the screen?
+
 
 }
-
-
-
-
