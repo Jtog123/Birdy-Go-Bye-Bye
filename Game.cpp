@@ -32,12 +32,31 @@ Game::Game(const int width, const int height)
     }
 
 
+    // Set initial Position for second vector of birds
     for (int i = 0; i < birdVectTwo.size(); ++i)
     {
         birdVectTwo[i].getSprite().setPosition(vectTwoPos); // set pos
         birdVectTwo[i].getSprite().setScale(-1.75, 1.75);
         vectTwoPos.x -= 60.f;
     }
+
+    /* Load first cloud */
+    if (!cloudText1.loadFromFile("Sprites/cloud1.png"))
+    {
+        std::cout << "Couldn't load cloud1" << std::endl;
+    }
+    cloudSprite1.setTexture(cloudText1);
+
+    /* Load second cloud*/
+    if (!cloudText1.loadFromFile("Sprites/cloud2.png"))
+    {
+        std::cout << "Couldn't load cloud2" << std::endl;
+    }
+    cloudSprite2.setTexture(cloudText2);
+
+    cloudSprite1.setScale(7, 7);
+    cloudSprite1.setPosition(100, 80);
+
 
 
 }
@@ -48,13 +67,13 @@ void Game::initVariables()
     gameWon = false;
     gameOver = false;
     timeRemaning = true;
-    birdVectOne = createBirdVector(7, 3, 1); // why does this not function properly?
-    birdVectTwo = createBirdVector(13, 0, 0);
+    birdVectOne = createBirdVector(10, 3, 1); // why does this not function properly?
+    birdVectTwo = createBirdVector(13, 1, 0);
 
-    vectOnePos.x = 1500;
+    vectOnePos.x = 1675;
     vectOnePos.y = 150;
 
-    vectTwoPos.x = -500;
+    vectTwoPos.x = -100;
     vectTwoPos.y = 350;
 
 
@@ -82,9 +101,9 @@ void Game::handleInputs()
     {
         switch (event.type)
         {
-        case sf::Event::Closed:
-            window.close();
-            break;
+            case sf::Event::Closed:
+                window.close();
+                break;
         }
     }
 }
@@ -125,6 +144,7 @@ void Game::updateObjects()
         player->setScopePosition(player->getScopePosition().x, window.getSize().y - 15);
     }
 
+    cloudSprite1.move(.4f, 0);
 
     startBirdFlight();
 
@@ -133,8 +153,10 @@ void Game::updateObjects()
 
 void Game::drawObjects()
 {
-    window.clear(sf::Color::White);
+    window.clear(sf::Color(112,202,250));
 
+    window.draw(cloudSprite1);
+    window.draw(cloudSprite2);
 
     for (int i = 0; i < birdVectOne.size(); ++i)
     {
@@ -147,7 +169,6 @@ void Game::drawObjects()
     }
 
     player->draw(window);
-
 
     window.display();
 

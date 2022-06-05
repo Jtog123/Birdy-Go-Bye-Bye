@@ -3,7 +3,7 @@
 
 int main()
 {
-
+    std::srand(time(0)); // Randomize the pattern of birds
     Game game(800,600);
     game.run();
     // 

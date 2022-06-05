@@ -38,6 +38,12 @@ class Game
 		sf::Vector2f vectOnePos;
 		std::vector<Bird> birdVectTwo;
 		sf::Vector2f vectTwoPos;
+		sf::Texture cloudText1;
+		sf::Texture cloudText2;
+
+		sf::Sprite cloudSprite1;
+		sf::Sprite cloudSprite2;
+
 
 
 

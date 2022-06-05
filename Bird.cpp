@@ -8,8 +8,6 @@ Each Bird instance I create is one individual Bird
 
 
 
-
-
 Bird::Bird()
 {
 }
@@ -19,13 +17,6 @@ Bird::Bird(const sf::RenderWindow& window)
 	
 }
 
-/*
-I'm only able to see one bird. tbe only things that change happen immediatley upon its construction
-after that I get nothing from my other functions.
-
-I dont know if I'm drawing a vector or a single sprite
-
-*/
 
 Bird::Bird(BirdType bird_type)
 	// vector 1 position, where to create vector and use them?
