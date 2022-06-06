@@ -44,6 +44,8 @@ class Game
 		sf::Sprite cloudSprite1;
 		sf::Sprite cloudSprite2;
 
+		bool shotFired;
+
 
 
 
@@ -51,6 +53,8 @@ class Game
 		std::vector<Bird> createBirdVector(int numOfBrown, int numOfBlue, int numOfRed);
 
 		void startBirdFlight();
+
+		void playerShoots(sf::Event& event);
 
 		void initVariables();
 

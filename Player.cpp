@@ -6,14 +6,18 @@ Player::Player()
 }
 
 Player::Player(const sf::RenderWindow& window)
-	:shotFired(false), totalBullets(2)
+	:shotFired(false), totalBullets(1)
 {
 	/*
 		Pass in the game window to set the Players posistion
 	*/
 
-	scopePosition.x = window.getPosition().x / 2;
-	scopePosition.y = window.getPosition().y / 2;
+
+
+
+
+	scopePosition.x = window.getPosition().x;
+	scopePosition.y = window.getPosition().y;
 	//get global bounds?
 
 	if (!texture.loadFromFile("Sprites/Scope.png"))
@@ -62,6 +66,8 @@ void Player::draw(const sf::RenderTarget& window, sf::RenderStates) const
 
 void Player::shoot()
 {
+	// Pass pointer to bird object? or do shooting in game class
+	// 
 	// for the scope maybe use a smallblack circle place in center of scope?
 	// putt small black circle in center of sprite
 	// if the small circle intersects bird and mouseisclicked

@@ -40,7 +40,7 @@ Game::Game(const int width, const int height)
         vectTwoPos.x -= 60.f;
     }
 
-    /* Load first cloud */
+    /* Load first cloud */ // Create load clouds function that moves them?
     if (!cloudText1.loadFromFile("Sprites/cloud1.png"))
     {
         std::cout << "Couldn't load cloud1" << std::endl;
@@ -55,7 +55,7 @@ Game::Game(const int width, const int height)
     cloudSprite2.setTexture(cloudText2);
 
     cloudSprite1.setScale(7, 7);
-    cloudSprite1.setPosition(100, 80);
+    cloudSprite1.setPosition(-200, 80);
 
 
 
@@ -67,6 +67,7 @@ void Game::initVariables()
     gameWon = false;
     gameOver = false;
     timeRemaning = true;
+    shotFired = false;
     birdVectOne = createBirdVector(10, 3, 1); // why does this not function properly?
     birdVectTwo = createBirdVector(13, 1, 0);
 
@@ -104,12 +105,22 @@ void Game::handleInputs()
             case sf::Event::Closed:
                 window.close();
                 break;
+            case sf::Event::MouseButtonPressed:
+                handleButtonEvents(event);
+                break;
+                   
         }
     }
 }
 
-void Game::handleButtonEvents(sf::Event&)
+void Game::handleButtonEvents(sf::Event& ev)
 {
+    switch (ev.mouseButton.button)
+    {
+        case sf::Mouse::Left:
+            playerShoots(ev);
+            break;
+    }
 }
 
 void Game::updateObjects()
@@ -147,6 +158,7 @@ void Game::updateObjects()
     cloudSprite1.move(.4f, 0);
 
     startBirdFlight();
+
 
 
 }
@@ -270,4 +282,67 @@ void Game::startBirdFlight()
     }
 
 
+}
+
+void Game::playerShoots(sf::Event& ev)
+{
+    std::cout << "Mouse position x is : " << ev.mouseButton.x << std::endl;
+    std::cout << "Mouse position y is : " << ev.mouseButton.y << std::endl;
+    std::cout << "First bird pos x is : " << birdVectOne[birdVectOne.size() - 1].getSprite().getPosition().x << std::endl;
+    std::cout << "First bird pos y is : " << birdVectOne[birdVectOne.size() - 1].getSprite().getPosition().y << std::endl;
+
+
+    //being offset in the range of 20-40 pixels
+
+    shotFired = true;
+    if (shotFired)
+    {
+        for (int i = 0; i < birdVectOne.size(); ++i)
+        {
+            
+            if (ev.mouseButton.x == birdVectOne[i].getSprite().getPosition().x && ev.mouseButton.y == birdVectOne[i].getSprite().getPosition().y)
+            {
+
+                std::cout << "Hit" << std::endl;
+                //event.mouseButton.x and event.mouseButton.y
+
+                        //make bird die
+                        // bullets -= 1;
+                    //else
+                    ///{
+                    //    gameOver = true;
+                    //}
+            }
+
+
+        }
+
+          
+    }
+
+
+        // for the scope maybe use a smallblack circle place in center of scope?
+// putt small black circle in center of sprite
+// if the small circle intersects bird and mouseisclicked
+// 
+// In the update part on click we will shoot the gun
+//
+// // shotFired = true
+// bird dies and falls of map (along with this)
+// totalBullets -= 1;
+
+/* if (mousecliked)
+* player->shoot() sets shotfired to true
+* if(shotFired)
+*	if(if the crosshairs allign and interact with bird pixels)
+*		bird->die();
+*		totalBullets -= 1;
+*		check if game is won
+*	else if(bullet MISSES and doesnt interact with pixels)
+*		totalBullets -= 1;
+*		check if game is over
+*
+* */
+
+//contains()
 }
