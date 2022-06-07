@@ -10,6 +10,7 @@ enum class BirdType
 	Red,
 };
 
+
 class Bird
 {
 	public:
@@ -18,7 +19,9 @@ class Bird
 		Bird(BirdType);
 		void draw(sf::RenderWindow&);
 		void fly(); // PURE VIRTUAL?
-		void die(); // Stop animating the bird, have it fall off the screen,, rotate it on its head
+		void die(sf::Vector2f position); // Stop animating the bird, have it fall off the screen,, rotate it on its head
+
+
 		void setBirdPosition(sf::Vector2f pos);
 		sf::Vector2f getBirdPosition();
 		sf::Sprite& getSprite();

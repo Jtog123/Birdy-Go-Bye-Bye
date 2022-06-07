@@ -82,6 +82,16 @@ void Bird::fly()
 	
 }
 
+void Bird::die(sf::Vector2f position)
+{
+	//send it to the function, load up the new texture animate through it
+// then erase bird from teh vector
+	//load up the texture 
+	//set its position to the one passed in
+	//animate through it
+}
+
+
 void Bird::setBirdPosition(sf::Vector2f pos)
 {
 	birdSprite.setPosition(pos);

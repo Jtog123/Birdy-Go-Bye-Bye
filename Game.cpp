@@ -78,6 +78,8 @@ void Game::initVariables()
     vectTwoPos.y = 350;
 
 
+
+
 }
 
 
@@ -158,7 +160,14 @@ void Game::updateObjects()
     cloudSprite1.move(.4f, 0);
 
     startBirdFlight();
-
+    // Doesnt stop bird flight because it keeps looping around needs
+    // only start once
+    //seperate something from the function the animation or the 
+    // or load up a new sprite once its clicked and loop throuh that?
+    // a ball of feathers or something.
+    //then pop it out of the vector
+    // we call birdVect[i].getSprite().die()
+    // it loads up each individual feathers based on type.
 
 
 }
@@ -327,6 +336,13 @@ void Game::playerShoots( const sf::Event& ev)
             {
 
                 std::cout << "Hit" << std::endl;
+                
+                birdVectOne[i].die(birdVectOne[i].getSprite().getPosition()); // call function pass in a position// with this position we
+                //send it to the function, load up the new texture animate through it
+                // then erase bird from teh vector
+
+                // pop it out of the vector.
+               
                 //event.mouseButton.x and event.mouseButton.y
 
                         //make bird die
@@ -336,7 +352,19 @@ void Game::playerShoots( const sf::Event& ev)
                     //    gameOver = true;
                     //}
             }
+        }
 
+        // For vector 2
+        for (int i = 0; i < birdVectTwo.size(); ++i)
+        {
+            if (ev.mouseButton.x >= birdVectTwo[i].getSprite().getPosition().x &&
+                ev.mouseButton.x <= (birdVectTwo[i].getSprite().getPosition().x + birdVectTwo[i].getSprite().getGlobalBounds().width)
+                && ev.mouseButton.y >= birdVectTwo[i].getSprite().getPosition().y &&
+                (ev.mouseButton.y <= birdVectTwo[i].getSprite().getPosition().y + birdVectTwo[i].getSprite().getGlobalBounds().height)
+                )
+            {
+                std::cout << "hit" << std::endl;
+            }
 
         }
 
