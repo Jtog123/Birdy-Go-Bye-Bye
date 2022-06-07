@@ -189,6 +189,8 @@ void Game::drawObjects()
         window.draw(birdVectTwo[i].getSprite());
     }
 
+    window.draw(birdBloodSprite);
+
     player->draw(window);
 
     window.display();
@@ -293,34 +295,28 @@ void Game::startBirdFlight()
 
 }
 
+void Game::birdDeath(const sf::Vector2f& position)
+{
+    
+    if (!birdBloodText.loadFromFile("Sprites/BloodSpurtAnimation.png"))
+    {
+        std::cout << "Couldnt load blood spurt" << std::endl;
+    }
+    birdBloodSprite.setTexture(birdBloodText);
+    birdBloodSprite.setScale(6, 6);
+    birdBloodSprite.setPosition(position);
+    if (frameCounter == 5)
+    {
+        frame = (frame + 1) % 5;
+        frameCounter = 0;
+    }
+    ++frameCounter;
+    birdBloodSprite.setTextureRect(sf::IntRect(frame * 32, 0, 32, 32));
+    
+}
+
 void Game::playerShoots( const sf::Event& ev)
 {
-    //std::cout << "Mouse position x is : " << ev.mouseButton.x << std::endl;
-    //std::cout << "Mouse position y is : " << ev.mouseButton.y<< std::endl;
-    //std::cout << "First bird pos x is : " << birdVectOne[birdVectOne.size() - 1].getSprite().getPosition().x << std::endl;
-    //std::cout << "First bird pos y is : " << birdVectOne[birdVectOne.size() - 1].getSprite().getPosition().y << std::endl;
-
-    
-        //ev.mouseButton.x == birdVectOne[i].getSprite().getPosition().x
-
-    /* Range of these two things? gives me 56*/
-    //std::cout << birdVectOne[0].getSprite().getGlobalBounds().width << std::endl; // birdWidth
-    //std::cout << birdVectOne[0].getSprite().getGlobalBounds().height << std::endl;
-
-    //If the click happens in range one one spot to the next
-    // if(ev.MouseButon.x >= )
-
-    // front point -- birdVectOne[i].getSprite().getPosition().x
-    // coords of click -- ev.MouseButon.x
-    // back point -- birdVectOne[i].getSprite().getPosition().x + birdVectOne[i].getSprite().getGlobalBounds().width
-
-    // top point -- birdVectOne[i].getSprite().getPosition().y
-    // coords of click -- ev.MouseButon.y
-    // bottom point -- birdVectOne[i].getSprite().getPosition().y + birdVectOne[i].getSprite().getGlobalBounds().height
-
-
-
-    //being offset in the range of 20-40 pixels
 
     shotFired = true;
     if (shotFired)
@@ -337,20 +333,10 @@ void Game::playerShoots( const sf::Event& ev)
 
                 std::cout << "Hit" << std::endl;
                 
-                birdVectOne[i].die(birdVectOne[i].getSprite().getPosition()); // call function pass in a position// with this position we
-                //send it to the function, load up the new texture animate through it
-                // then erase bird from teh vector
+                birdDeath(birdVectOne[i].getSprite().getPosition());
+                birdVectOne.erase(birdVectOne.begin() + i);
 
-                // pop it out of the vector.
-               
-                //event.mouseButton.x and event.mouseButton.y
-
-                        //make bird die
-                        // bullets -= 1;
-                    //else
-                    ///{
-                    //    gameOver = true;
-                    //}
+                // Check if game is over etc
             }
         }
 

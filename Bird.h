@@ -19,7 +19,7 @@ class Bird
 		Bird(BirdType);
 		void draw(sf::RenderWindow&);
 		void fly(); // PURE VIRTUAL?
-		void die(sf::Vector2f position); // Stop animating the bird, have it fall off the screen,, rotate it on its head
+		void die(const sf::Vector2f& position); // Stop animating the bird, have it fall off the screen,, rotate it on its head
 
 
 		void setBirdPosition(sf::Vector2f pos);
@@ -35,7 +35,8 @@ class Bird
 		float birdVelX = 1.5f;
 		sf::Texture birdText;
 		sf::Sprite birdSprite;
-
+		//sf::Texture birdBloodText;
+		//sf::Sprite birdBloodSprite;
 
 
 };
