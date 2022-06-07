@@ -28,7 +28,7 @@ Game::Game(const int width, const int height)
     {
         birdVectOne[i].getSprite().setPosition(vectOnePos.x, vectOnePos.y);
         birdVectOne[i].getSprite().setScale(1.75, 1.75);
-        vectOnePos.x -= 60.f;
+        vectOnePos.x -= 70.f;
     }
 
 
@@ -37,7 +37,7 @@ Game::Game(const int width, const int height)
     {
         birdVectTwo[i].getSprite().setPosition(vectTwoPos); // set pos
         birdVectTwo[i].getSprite().setScale(-1.75, 1.75);
-        vectTwoPos.x -= 60.f;
+        vectTwoPos.x -= 70.f;
     }
 
     /* Load first cloud */ // Create load clouds function that moves them?
@@ -284,12 +284,31 @@ void Game::startBirdFlight()
 
 }
 
-void Game::playerShoots(sf::Event& ev)
+void Game::playerShoots( const sf::Event& ev)
 {
-    std::cout << "Mouse position x is : " << ev.mouseButton.x << std::endl;
-    std::cout << "Mouse position y is : " << ev.mouseButton.y << std::endl;
-    std::cout << "First bird pos x is : " << birdVectOne[birdVectOne.size() - 1].getSprite().getPosition().x << std::endl;
-    std::cout << "First bird pos y is : " << birdVectOne[birdVectOne.size() - 1].getSprite().getPosition().y << std::endl;
+    //std::cout << "Mouse position x is : " << ev.mouseButton.x << std::endl;
+    //std::cout << "Mouse position y is : " << ev.mouseButton.y<< std::endl;
+    //std::cout << "First bird pos x is : " << birdVectOne[birdVectOne.size() - 1].getSprite().getPosition().x << std::endl;
+    //std::cout << "First bird pos y is : " << birdVectOne[birdVectOne.size() - 1].getSprite().getPosition().y << std::endl;
+
+    
+        //ev.mouseButton.x == birdVectOne[i].getSprite().getPosition().x
+
+    /* Range of these two things? gives me 56*/
+    //std::cout << birdVectOne[0].getSprite().getGlobalBounds().width << std::endl; // birdWidth
+    //std::cout << birdVectOne[0].getSprite().getGlobalBounds().height << std::endl;
+
+    //If the click happens in range one one spot to the next
+    // if(ev.MouseButon.x >= )
+
+    // front point -- birdVectOne[i].getSprite().getPosition().x
+    // coords of click -- ev.MouseButon.x
+    // back point -- birdVectOne[i].getSprite().getPosition().x + birdVectOne[i].getSprite().getGlobalBounds().width
+
+    // top point -- birdVectOne[i].getSprite().getPosition().y
+    // coords of click -- ev.MouseButon.y
+    // bottom point -- birdVectOne[i].getSprite().getPosition().y + birdVectOne[i].getSprite().getGlobalBounds().height
+
 
 
     //being offset in the range of 20-40 pixels
@@ -300,7 +319,11 @@ void Game::playerShoots(sf::Event& ev)
         for (int i = 0; i < birdVectOne.size(); ++i)
         {
             
-            if (ev.mouseButton.x == birdVectOne[i].getSprite().getPosition().x && ev.mouseButton.y == birdVectOne[i].getSprite().getPosition().y)
+            if (ev.mouseButton.x >= birdVectOne[i].getSprite().getPosition().x && 
+                ev.mouseButton.x <= (birdVectOne[i].getSprite().getPosition().x + birdVectOne[i].getSprite().getGlobalBounds().width)
+                && ev.mouseButton.y >= birdVectOne[i].getSprite().getPosition().y && 
+                (ev.mouseButton.y <= birdVectOne[i].getSprite().getPosition().y + birdVectOne[i].getSprite().getGlobalBounds().height)
+                )
             {
 
                 std::cout << "Hit" << std::endl;

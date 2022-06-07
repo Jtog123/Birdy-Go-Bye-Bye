@@ -54,7 +54,7 @@ class Game
 
 		void startBirdFlight();
 
-		void playerShoots(sf::Event& event);
+		void playerShoots(const sf::Event& event);
 
 		void initVariables();
 

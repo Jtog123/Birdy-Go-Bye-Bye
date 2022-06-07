@@ -8,19 +8,8 @@ Player::Player()
 Player::Player(const sf::RenderWindow& window)
 	:shotFired(false), totalBullets(1)
 {
-	/*
-		Pass in the game window to set the Players posistion
-	*/
 
-
-
-
-
-	scopePosition.x = window.getPosition().x;
-	scopePosition.y = window.getPosition().y;
-	//get global bounds?
-
-	if (!texture.loadFromFile("Sprites/Scope.png"))
+	if (!texture.loadFromFile("Sprites/ScopeRedone6.png"))
 	{
 		std::cout << "Could not load texture" << std::endl;
 		return;
@@ -29,9 +18,10 @@ Player::Player(const sf::RenderWindow& window)
 	scopeSprite.setTexture(texture);
 	scopeSprite.setScale(.75, .75);
 	scopeSprite.setOrigin((sf::Vector2f)texture.getSize() / 2.f);
-	scopeSprite.setPosition(scopePosition.x, scopePosition.y);
+
 }
 
+//Function that gets the scope center?
 
 
 void Player::setScopePosition(float x, float y)
