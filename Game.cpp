@@ -23,6 +23,32 @@ Game::Game(const int width, const int height)
     window.setFramerateLimit(60);
     initVariables();
 
+    /*SELECT TARGET BIRD, CREATE VECTORS BASED OFF TARGET BIRD*/
+
+    targetBird = BirdType(rand() % 3);
+
+    if (targetBird == BirdType::Brown)
+    {
+        birdVectOne = createBirdVector(1, 6, 7); // create vects
+        birdVectTwo = createBirdVector(1, 7, 6);
+            std::cout << "target brown" << std::endl;
+    }
+    else if (targetBird == BirdType::Blue)
+    {
+        birdVectOne = createBirdVector(6, 1, 7); // create vects
+        birdVectTwo = createBirdVector(7, 1, 6);
+        std::cout << " target Blue" << std::endl;
+    }
+    else if (targetBird == BirdType::Red)
+    {
+        birdVectOne = createBirdVector(7, 6, 1); // create vects
+        birdVectTwo = createBirdVector(6, 7, 1);
+        std::cout << "target Red" << std::endl;
+    }
+
+    //////////////////////////////////////////////////
+    /*  ASSIGN POSITIONS FOR VECTORS OF BIRDS   */
+
     // Set initial Position for first vector of birds
     for (int i = 0; i < birdVectOne.size(); ++i)
     {
@@ -63,35 +89,12 @@ Game::Game(const int width, const int height)
     }
 
     /*  SELECTS TARGET BIRD*/
+    //displayNextLevel();
 
-    targetBird = BirdType(rand() % 3);
+    
 
-    if (targetBird == BirdType::Brown)
-    {
-        std::cout << "target brown" << std::endl;
-    }
-    else if (targetBird == BirdType::Blue)
-    {
-        std::cout << " target Blue" << std::endl;
-    }
-    else if(targetBird == BirdType::Red)
-    {
-        std::cout << "target Red" << std::endl;
-    }
+    
 
-    //BirdType targetBird = static_cast<BirdType>(rand() % 3);
-    //BirdType targetBird1 = BirdType(rand() % 3);
-    /*
-        start game, generate targetBird, load up the sprite in top Left corner
-        if targetBird == BirdType brown create vectors with 1 brown bird each
-        continue for every bird
-
-        if(birdVcetone[i] == targetBird)
-            next level text
-        else
-            gameover
-
-    */
 
     /*
     nextLevelText.setFont(font); // roundy rainbows
@@ -115,8 +118,8 @@ void Game::initVariables()
     gameOver = false;
     timeRemaning = true;
     shotFired = false;
-    birdVectOne = createBirdVector(10, 3, 1); 
-    birdVectTwo = createBirdVector(13, 1, 0);
+    //birdVectOne = createBirdVector(10, 3, 1); 
+   // birdVectTwo = createBirdVector(13, 1, 0);
 
     vectOnePos.x = 1675;
     vectOnePos.y = 150;
@@ -124,9 +127,6 @@ void Game::initVariables()
     vectTwoPos.x = -100;
     vectTwoPos.y = 350;
 
-
-    // generate a new targetbird every level, create function? This will only generate once, place in displayNextLevel()
-    // gerenrate one at the start then a new one after every level is complete.
 
 }
 
@@ -139,9 +139,20 @@ void Game::displayGameOver()
 
 void Game::displayNextLevel()
 {
-    // generate enw bird
-    // create vectors based on that bird
+    /*
+If the level is won figure out way to
+- set target bird again
+-set vector positions like in initvars
+-create vectors
+--loop through assign those postions to vectors
+
+*/
     std::cout << "it worked" << std::endl;
+
+
+
+
+
 }
 
 void Game::pollWindowEvents(sf::Event& event)
@@ -266,8 +277,9 @@ void Game::run()
 
         if (levelWon)
         {
+            levelWon = false;
             displayNextLevel();
-            return;
+            //return;
         }
 
 
@@ -339,20 +351,14 @@ void Game::startBirdFlight()
 
 }
 
+/*
+If the level is won figure out way to
+-set vector positions
+-create vectors
+--assign those postions to vectors
 
+*/
 
-void Game::birdDeath(const sf::Vector2f& position)
-{
-    
-    if (!birdBloodText.loadFromFile("Sprites/BloodSpurtAnimation.png"))
-    {
-        std::cout << "Couldnt load blood spurt" << std::endl;
-    }
-    birdBloodSprite.setTexture(birdBloodText);
-    birdBloodSprite.setScale(2, 2);
-    birdBloodSprite.setPosition(position);
-
-}
 
 void Game::playerShoots( const sf::Event& ev)
 {
@@ -375,19 +381,24 @@ void Game::playerShoots( const sf::Event& ev)
                 if (birdVectOne[i].getBirdType() == targetBird)
                 {
                     //if we hit the correct bird
+                    levelWon = true;
                     birdVectOne.erase(birdVectOne.begin() + i);
                     birdVectOne.clear();
+                    birdVectTwo.clear();
                     displayNextLevel();
+
                 }
                 else
                 {
+                    //if we hit the incorrect bird
+                    //levelWon = false;
+                    //gameOver = true;
                     birdVectOne.erase(birdVectOne.begin() + i);
                     birdVectOne.clear();
+                    birdVectTwo.clear();
                     displayGameOver();
                 }
-                
-
-                // Check if game is over etc
+             
             }
         }
 

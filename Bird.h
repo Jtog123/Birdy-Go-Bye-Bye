@@ -36,6 +36,7 @@ class Bird
 		float birdVelX = 1.5f;
 		sf::Texture birdText;
 		sf::Sprite birdSprite;
+		BirdType _birdType;
 		//sf::Texture birdBloodText;
 		//sf::Sprite birdBloodSprite;
 

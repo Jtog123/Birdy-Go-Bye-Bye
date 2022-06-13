@@ -31,6 +31,7 @@ Bird::Bird(BirdType bird_type)
 				std::cout << "Could not load Brown Birds" << std::endl;
 				return;
 			}
+			_birdType = BirdType::Brown;
 			birdSprite.setTexture(birdText);
 			birdSprite.setTextureRect(sf::IntRect(0, 0, 32, 32));
 			break;
@@ -42,6 +43,7 @@ Bird::Bird(BirdType bird_type)
 				std::cout << "Could not load Blue Birds" << std::endl;
 				return;
 			}
+			_birdType = BirdType::Blue;
 			birdSprite.setTexture(birdText);
 			birdSprite.setTextureRect(sf::IntRect(0, 0, 32, 32));
 			break;
@@ -52,6 +54,7 @@ Bird::Bird(BirdType bird_type)
 				std::cout << "Could not load Red Birds" << std::endl;
 				return;
 			}
+			_birdType = BirdType::Red;
 			birdSprite.setTexture(birdText);
 			birdSprite.setTextureRect(sf::IntRect(0, 0, 32, 32));
 			break;
@@ -71,7 +74,7 @@ void Bird::draw(sf::RenderWindow& window)
 
 BirdType Bird::getBirdType()
 {
-	return BirdType();
+	return _birdType;
 }
 
 
