@@ -57,6 +57,53 @@ Game::Game(const int width, const int height)
     cloudSprite1.setScale(7, 7);
     cloudSprite1.setPosition(-200, 80);
 
+    if (!font.loadFromFile("Fonts/RoundyRainbows.ttf"))
+    {
+        std::cout << "Could not load font" << std::endl;
+    }
+
+    /*  SELECTS TARGET BIRD*/
+
+    targetBird = BirdType(rand() % 3);
+
+    if (targetBird == BirdType::Brown)
+    {
+        std::cout << "target brown" << std::endl;
+    }
+    else if (targetBird == BirdType::Blue)
+    {
+        std::cout << " target Blue" << std::endl;
+    }
+    else if(targetBird == BirdType::Red)
+    {
+        std::cout << "target Red" << std::endl;
+    }
+
+    //BirdType targetBird = static_cast<BirdType>(rand() % 3);
+    //BirdType targetBird1 = BirdType(rand() % 3);
+    /*
+        start game, generate targetBird, load up the sprite in top Left corner
+        if targetBird == BirdType brown create vectors with 1 brown bird each
+        continue for every bird
+
+        if(birdVcetone[i] == targetBird)
+            next level text
+        else
+            gameover
+
+    */
+
+    /*
+    nextLevelText.setFont(font); // roundy rainbows
+    nextLevelText.setOutlineColor(sf::Color::Yellow);
+    nextLevelText.setOutlineThickness(5);
+    nextLevelText.setFillColor(sf::Color::White);
+    nextLevelText.setString("Next Level!");
+     //nextLevelText.setOrigin(window.getSize().x / 2, window.getSize().y / 2);
+    nextLevelText.setCharacterSize(125);
+    nextLevelText.setPosition((window.getSize().x - nextLevelText.getLocalBounds().width)/2 , (window.getSize().y - nextLevelText.getLocalBounds().height) /2 - 40  ); // 400 , 300
+    */
+
 
 
 }
@@ -64,11 +111,11 @@ Game::Game(const int width, const int height)
 void Game::initVariables()
 
 {
-    gameWon = false;
+    levelWon = false;
     gameOver = false;
     timeRemaning = true;
     shotFired = false;
-    birdVectOne = createBirdVector(10, 3, 1); // why does this not function properly?
+    birdVectOne = createBirdVector(10, 3, 1); 
     birdVectTwo = createBirdVector(13, 1, 0);
 
     vectOnePos.x = 1675;
@@ -78,7 +125,8 @@ void Game::initVariables()
     vectTwoPos.y = 350;
 
 
-
+    // generate a new targetbird every level, create function? This will only generate once, place in displayNextLevel()
+    // gerenrate one at the start then a new one after every level is complete.
 
 }
 
@@ -86,11 +134,14 @@ void Game::initVariables()
 
 void Game::displayGameOver()
 {
-
+    std::cout << "Game over" << std::endl;
 }
 
-void Game::displayGameWon()
+void Game::displayNextLevel()
 {
+    // generate enw bird
+    // create vectors based on that bird
+    std::cout << "it worked" << std::endl;
 }
 
 void Game::pollWindowEvents(sf::Event& event)
@@ -160,14 +211,6 @@ void Game::updateObjects()
     cloudSprite1.move(.4f, 0);
 
     startBirdFlight();
-    // Doesnt stop bird flight because it keeps looping around needs
-    // only start once
-    //seperate something from the function the animation or the 
-    // or load up a new sprite once its clicked and loop throuh that?
-    // a ball of feathers or something.
-    //then pop it out of the vector
-    // we call birdVect[i].getSprite().die()
-    // it loads up each individual feathers based on type.
 
 
 }
@@ -189,9 +232,10 @@ void Game::drawObjects()
         window.draw(birdVectTwo[i].getSprite());
     }
 
-    window.draw(birdBloodSprite);
+    //window.draw(birdBloodSprite);
 
     player->draw(window);
+    window.draw(nextLevelText);
 
     window.display();
 
@@ -220,9 +264,9 @@ void Game::run()
             return;
         }
 
-        if (gameWon)
+        if (levelWon)
         {
-            displayGameWon();
+            displayNextLevel();
             return;
         }
 
@@ -295,6 +339,8 @@ void Game::startBirdFlight()
 
 }
 
+
+
 void Game::birdDeath(const sf::Vector2f& position)
 {
     
@@ -303,16 +349,9 @@ void Game::birdDeath(const sf::Vector2f& position)
         std::cout << "Couldnt load blood spurt" << std::endl;
     }
     birdBloodSprite.setTexture(birdBloodText);
-    birdBloodSprite.setScale(6, 6);
+    birdBloodSprite.setScale(2, 2);
     birdBloodSprite.setPosition(position);
-    if (frameCounter == 5)
-    {
-        frame = (frame + 1) % 5;
-        frameCounter = 0;
-    }
-    ++frameCounter;
-    birdBloodSprite.setTextureRect(sf::IntRect(frame * 32, 0, 32, 32));
-    
+
 }
 
 void Game::playerShoots( const sf::Event& ev)
@@ -323,7 +362,7 @@ void Game::playerShoots( const sf::Event& ev)
     {
         for (int i = 0; i < birdVectOne.size(); ++i)
         {
-            
+            //if (birdVectOOne[i].getSprite().getGlobalBounds().contains(ev.mouseButton.x, ev.mouseButton.y))
             if (ev.mouseButton.x >= birdVectOne[i].getSprite().getPosition().x && 
                 ev.mouseButton.x <= (birdVectOne[i].getSprite().getPosition().x + birdVectOne[i].getSprite().getGlobalBounds().width)
                 && ev.mouseButton.y >= birdVectOne[i].getSprite().getPosition().y && 
@@ -332,9 +371,21 @@ void Game::playerShoots( const sf::Event& ev)
             {
 
                 std::cout << "Hit" << std::endl;
+
+                if (birdVectOne[i].getBirdType() == targetBird)
+                {
+                    //if we hit the correct bird
+                    birdVectOne.erase(birdVectOne.begin() + i);
+                    birdVectOne.clear();
+                    displayNextLevel();
+                }
+                else
+                {
+                    birdVectOne.erase(birdVectOne.begin() + i);
+                    birdVectOne.clear();
+                    displayGameOver();
+                }
                 
-                birdDeath(birdVectOne[i].getSprite().getPosition());
-                birdVectOne.erase(birdVectOne.begin() + i);
 
                 // Check if game is over etc
             }

@@ -67,46 +67,11 @@ void Bird::draw(sf::RenderWindow& window)
 	//window.draw(birdBloodSprite);
 }
 
-void Bird::fly()
-{
-	/*
-	if (frameCounter == 5)
-	{
-		frame = (frame + 1) % 8;
-		frameCounter = 0;
-	}
-	*/
-	//++frameCounter;
-	//birdSprite.setTextureRect(sf::IntRect(frame * 32, 0, 32, 32));
-	//position.x -= birdVelX;
-	
-}
 
-void Bird::die(const sf::Vector2f& position)
+
+BirdType Bird::getBirdType()
 {
-	//send it to the function, load up the new texture animate through it
-// then erase bird from teh vector
-	//load up the texture 
-	//set its position to the one passed in
-	//animate throught
-	/*
-	int frameCounter = 0;
-	int frame = 0;
-	if (!birdBloodText.loadFromFile("Sprites/BloodSpurtAnimation.png"))
-	{
-		std::cout << "Couldnt load blood spurt" << std::endl;
-	}
-	birdBloodSprite.setTexture(birdBloodText);
-	birdBloodSprite.setScale(8, 8);
-	birdBloodSprite.setPosition(position);
-	if (frameCounter == 5)
-	{
-		frame = (frame + 1) % 5;
-		frameCounter = 0;
-	}
-	++frameCounter;
-	birdBloodSprite.setTextureRect(sf::IntRect(frame * 32, 0, 32, 32));
-	*/
+	return BirdType();
 }
 
 

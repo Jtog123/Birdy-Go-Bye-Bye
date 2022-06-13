@@ -9,7 +9,7 @@ Player::Player(const sf::RenderWindow& window)
 	:shotFired(false), totalBullets(1)
 {
 
-	if (!texture.loadFromFile("Sprites/Scope.png"))
+	if (!texture.loadFromFile("Sprites/ScopeRedone6.png"))
 	{
 		std::cout << "Could not load texture" << std::endl;
 		return;

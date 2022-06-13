@@ -25,7 +25,7 @@ class Game
 		sf::Clock clock;
 		std::unique_ptr<Player> player;
 		std::unique_ptr<Bird> birdPtr;
-		bool gameWon;
+		bool levelWon;
 		bool gameOver;
 		bool timeRemaning;
 		std::vector<Bird> birdVectOne;
@@ -48,7 +48,13 @@ class Game
 		sf::Sprite birdBloodSprite;
 
 		bool shotFired;
+		sf::Font font;
+		sf::RectangleShape nextLevelRect;
+		sf::Text nextLevelText;
 
+		BirdType targetBird;
+
+		int score;
 
 
 
@@ -56,6 +62,8 @@ class Game
 		std::vector<Bird> createBirdVector(int numOfBrown, int numOfBlue, int numOfRed);
 
 		void startBirdFlight();
+
+		
 
 		void birdDeath(const sf::Vector2f& position);
 
@@ -65,7 +73,7 @@ class Game
 
 		void displayGameOver();
 
-		void displayGameWon();
+		void displayNextLevel();
 
 		void pollWindowEvents(sf::Event&);
 

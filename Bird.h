@@ -20,6 +20,7 @@ class Bird
 		void draw(sf::RenderWindow&);
 		void fly(); // PURE VIRTUAL?
 		void die(const sf::Vector2f& position); // Stop animating the bird, have it fall off the screen,, rotate it on its head
+		BirdType getBirdType();
 
 
 		void setBirdPosition(sf::Vector2f pos);
