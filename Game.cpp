@@ -160,6 +160,9 @@ If the level is won figure out way to
 */
     std::cout << "it worked" << std::endl;
 
+    birdVectOne.clear();
+    birdVectTwo.clear();
+
     /*SELECT TARGET BIRD, CREATE VECTORS BASED OFF TARGET BIRD*/
 
     targetBird = BirdType(rand() % 3);
@@ -205,7 +208,8 @@ If the level is won figure out way to
     for (int i = 0; i < birdVectTwo.size(); ++i)
     {
         birdVectTwo[i].getSprite().setPosition(vectTwoPos); // set pos
-        birdVectTwo[i].getSprite().setScale(-1.75, 1.75);
+        birdVectTwo[i].getSprite().setScale(-1.75, 1.75); // THIS LINE CAUSING PRBLEMS WITH VECTOR 2 create flipped bird sprite?
+        /*I flipped the sprites not taking into consideration their actual positions in the vector*/
         vectTwoPos.x -= 70.f;
     }
 
@@ -437,11 +441,14 @@ void Game::playerShoots(const sf::Event& ev)
         for (int i = 0; i < birdVectOne.size(); ++i)
         {
             //if (birdVectOOne[i].getSprite().getGlobalBounds().contains(ev.mouseButton.x, ev.mouseButton.y))
-            if (ev.mouseButton.x >= birdVectOne[i].getSprite().getPosition().x &&
+            /*
+            ev.mouseButton.x >= birdVectOne[i].getSprite().getPosition().x &&
                 ev.mouseButton.x <= (birdVectOne[i].getSprite().getPosition().x + birdVectOne[i].getSprite().getGlobalBounds().width)
                 && ev.mouseButton.y >= birdVectOne[i].getSprite().getPosition().y &&
                 (ev.mouseButton.y <= birdVectOne[i].getSprite().getPosition().y + birdVectOne[i].getSprite().getGlobalBounds().height)
-                )
+            
+            */
+            if (birdVectOne[i].getSprite().getGlobalBounds().contains(ev.mouseButton.x, ev.mouseButton.y))
             {
 
                 std::cout << "Hit" << std::endl;
@@ -452,9 +459,8 @@ void Game::playerShoots(const sf::Event& ev)
                     levelWon = true;
                     ++currentLevel;
                     currentLevelText2.setString(std::to_string(currentLevel));
-                    birdVectOne.erase(birdVectOne.begin() + i);
-                    birdVectOne.clear();
-                    birdVectTwo.clear();
+                    //birdVectOne.erase(birdVectOne.begin() + i);
+
                     displayNextLevel();
 
                 }
@@ -463,40 +469,51 @@ void Game::playerShoots(const sf::Event& ev)
                     //if we hit the incorrect bird
                     //levelWon = false;
                     //gameOver = true;
-                    birdVectOne.erase(birdVectOne.begin() + i);
-                    birdVectOne.clear();
-                    birdVectTwo.clear();
+                    //birdVectOne.erase(birdVectOne.begin() + i);
+
                     displayGameOver();
                 }
 
             }
         }
 
+        /*
+        eXpl0it3r — Today at 9:47 AM
+loop one empties the vectors
+loop two won't even run because there are no birds in the vector
+that you add it later on again doesn't really matter
+        */
+
         // For vector 2
         for (int i = 0; i < birdVectTwo.size(); ++i)
         {
-            if (ev.mouseButton.x >= birdVectTwo[i].getSprite().getPosition().x &&
+
+            /*
+            ev.mouseButton.x >= birdVectTwo[i].getSprite().getPosition().x &&
                 ev.mouseButton.x <= (birdVectTwo[i].getSprite().getPosition().x + birdVectTwo[i].getSprite().getGlobalBounds().width)
                 && ev.mouseButton.y >= birdVectTwo[i].getSprite().getPosition().y &&
                 (ev.mouseButton.y <= birdVectTwo[i].getSprite().getPosition().y + birdVectTwo[i].getSprite().getGlobalBounds().height)
-                )
+            
+            */
+            if (birdVectTwo[i].getSprite().getGlobalBounds().contains(ev.mouseButton.x, ev.mouseButton.y))
             {
                 std::cout << "hit" << std::endl;
+                std::cout << "THIS BIRD IS : " << (int)birdVectTwo[i].getBirdType() << std::endl;
+
                 if (birdVectTwo[i].getBirdType() == targetBird) // THIS DOESNT EQUAL TARGETBIRD?
                 {
                     levelWon = true;
                     ++currentLevel;
                     currentLevelText2.setString(std::to_string(currentLevel));
-                    birdVectTwo.erase(birdVectTwo.begin() + i);
-                    birdVectOne.clear();
-                    birdVectTwo.clear();
+                    //birdVectTwo.erase(birdVectTwo.begin() + i - 1);
+
+
                     displayNextLevel();
                 }
                 else
                 {
-                    birdVectTwo.erase(birdVectTwo.begin() + i);
-                    birdVectOne.clear();
-                    birdVectTwo.clear();
+                    //birdVectTwo.erase(birdVectTwo.begin() + i - 1);
+
                     displayGameOver();
                 }
             }

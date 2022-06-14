@@ -83,11 +83,17 @@ void Bird::setBirdPosition(sf::Vector2f pos)
 	birdSprite.setPosition(pos);
 }
 
-
+//Create fliiped sprite function?
 
 
 sf::Sprite& Bird::getSprite()
 {
+	return birdSprite;
+}
+
+sf::Sprite& Bird::getFlippedSprite()
+{
+	birdSprite.setScale(-1.75, 1.75);
 	return birdSprite;
 }
 
