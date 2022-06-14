@@ -92,8 +92,13 @@ Game::Game(const int width, const int height)
         std::cout << "Could not load font" << std::endl;
     }
 
-    /*  SELECTS TARGET BIRD*/
-    //displayNextLevel();
+    currentLevelText1.setFont(font);
+    currentLevelText1.setString("Current Level: ");
+    currentLevelText1.setPosition(20, 20);
+
+    currentLevelText2.setFont(font);
+    currentLevelText2.setString(std::to_string(currentLevel));
+    currentLevelText2.setPosition(250, 20);
 
     
 
@@ -122,9 +127,8 @@ void Game::initVariables()
     gameOver = false;
     timeRemaning = true;
     shotFired = false;
-    currentLevel = 1;
-    currentLevelText.setFont(font);
-    currentLevelText.setString(std::to_string(currentLevel));
+    //currentLevel = 1;
+
     //birdVectOne = createBirdVector(10, 3, 1); 
    // birdVectTwo = createBirdVector(13, 1, 0);
 
@@ -310,7 +314,8 @@ void Game::drawObjects()
 
     player->draw(window);
     window.draw(nextLevelText);
-
+    window.draw(currentLevelText1);
+    window.draw(currentLevelText2);
     window.display();
 
 }
@@ -423,7 +428,7 @@ If the level is won figure out way to
 */
 
 
-void Game::playerShoots( const sf::Event& ev)
+void Game::playerShoots(const sf::Event& ev)
 {
 
     shotFired = true;
@@ -432,9 +437,9 @@ void Game::playerShoots( const sf::Event& ev)
         for (int i = 0; i < birdVectOne.size(); ++i)
         {
             //if (birdVectOOne[i].getSprite().getGlobalBounds().contains(ev.mouseButton.x, ev.mouseButton.y))
-            if (ev.mouseButton.x >= birdVectOne[i].getSprite().getPosition().x && 
+            if (ev.mouseButton.x >= birdVectOne[i].getSprite().getPosition().x &&
                 ev.mouseButton.x <= (birdVectOne[i].getSprite().getPosition().x + birdVectOne[i].getSprite().getGlobalBounds().width)
-                && ev.mouseButton.y >= birdVectOne[i].getSprite().getPosition().y && 
+                && ev.mouseButton.y >= birdVectOne[i].getSprite().getPosition().y &&
                 (ev.mouseButton.y <= birdVectOne[i].getSprite().getPosition().y + birdVectOne[i].getSprite().getGlobalBounds().height)
                 )
             {
@@ -446,6 +451,7 @@ void Game::playerShoots( const sf::Event& ev)
                     //if we hit the correct bird
                     levelWon = true;
                     ++currentLevel;
+                    currentLevelText2.setString(std::to_string(currentLevel));
                     birdVectOne.erase(birdVectOne.begin() + i);
                     birdVectOne.clear();
                     birdVectTwo.clear();
@@ -462,7 +468,7 @@ void Game::playerShoots( const sf::Event& ev)
                     birdVectTwo.clear();
                     displayGameOver();
                 }
-             
+
             }
         }
 
@@ -476,36 +482,29 @@ void Game::playerShoots( const sf::Event& ev)
                 )
             {
                 std::cout << "hit" << std::endl;
+                if (birdVectTwo[i].getBirdType() == targetBird) // THIS DOESNT EQUAL TARGETBIRD?
+                {
+                    levelWon = true;
+                    ++currentLevel;
+                    currentLevelText2.setString(std::to_string(currentLevel));
+                    birdVectTwo.erase(birdVectTwo.begin() + i);
+                    birdVectOne.clear();
+                    birdVectTwo.clear();
+                    displayNextLevel();
+                }
+                else
+                {
+                    birdVectTwo.erase(birdVectTwo.begin() + i);
+                    birdVectOne.clear();
+                    birdVectTwo.clear();
+                    displayGameOver();
+                }
             }
 
         }
 
-          
+
     }
-
-
-        // for the scope maybe use a smallblack circle place in center of scope?
-// putt small black circle in center of sprite
-// if the small circle intersects bird and mouseisclicked
-// 
-// In the update part on click we will shoot the gun
-//
-// // shotFired = true
-// bird dies and falls of map (along with this)
-// totalBullets -= 1;
-
-/* if (mousecliked)
-* player->shoot() sets shotfired to true
-* if(shotFired)
-*	if(if the crosshairs allign and interact with bird pixels)
-*		bird->die();
-*		totalBullets -= 1;
-*		check if game is won
-*	else if(bullet MISSES and doesnt interact with pixels)
-*		totalBullets -= 1;
-*		check if game is over
-*
-* */
-
-//contains()
 }
+
+
