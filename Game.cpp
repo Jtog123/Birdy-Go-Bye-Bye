@@ -23,8 +23,11 @@ Game::Game(const int width, const int height)
     window.setFramerateLimit(60);
     initVariables();
 
+    displayNextLevel();
+
     /*SELECT TARGET BIRD, CREATE VECTORS BASED OFF TARGET BIRD*/
 
+    /*
     targetBird = BirdType(rand() % 3);
 
     if (targetBird == BirdType::Brown)
@@ -46,9 +49,10 @@ Game::Game(const int width, const int height)
         std::cout << "target Red" << std::endl;
     }
 
+    */
     //////////////////////////////////////////////////
     /*  ASSIGN POSITIONS FOR VECTORS OF BIRDS   */
-
+    /*
     // Set initial Position for first vector of birds
     for (int i = 0; i < birdVectOne.size(); ++i)
     {
@@ -118,14 +122,17 @@ void Game::initVariables()
     gameOver = false;
     timeRemaning = true;
     shotFired = false;
+    currentLevel = 1;
+    currentLevelText.setFont(font);
+    currentLevelText.setString(std::to_string(currentLevel));
     //birdVectOne = createBirdVector(10, 3, 1); 
    // birdVectTwo = createBirdVector(13, 1, 0);
 
-    vectOnePos.x = 1675;
-    vectOnePos.y = 150;
+    //vectOnePos.x = 1675;
+    //vectOnePos.y = 150;
 
-    vectTwoPos.x = -100;
-    vectTwoPos.y = 350;
+    //vectTwoPos.x = -100;
+    //vectTwoPos.y = 350;
 
 
 }
@@ -148,6 +155,62 @@ If the level is won figure out way to
 
 */
     std::cout << "it worked" << std::endl;
+
+    /*SELECT TARGET BIRD, CREATE VECTORS BASED OFF TARGET BIRD*/
+
+    targetBird = BirdType(rand() % 3);
+
+    if (targetBird == BirdType::Brown)
+    {
+        birdVectOne = createBirdVector(1, 6, 7); // create vects
+        birdVectTwo = createBirdVector(1, 7, 6);
+        std::cout << "target brown" << std::endl;
+    }
+    else if (targetBird == BirdType::Blue)
+    {
+        birdVectOne = createBirdVector(6, 1, 7); // create vects
+        birdVectTwo = createBirdVector(7, 1, 6);
+        std::cout << " target Blue" << std::endl;
+    }
+    else if (targetBird == BirdType::Red)
+    {
+        birdVectOne = createBirdVector(7, 6, 1); // create vects
+        birdVectTwo = createBirdVector(6, 7, 1);
+        std::cout << "target Red" << std::endl;
+    }
+
+    //////////////////////////////////////////////////
+    /*  ASSIGN POSITIONS FOR VECTORS OF BIRDS   */
+
+    vectOnePos.x = 1950;
+    vectOnePos.y = 150;
+
+    vectTwoPos.x = -200;
+    vectTwoPos.y = 350;
+
+    // Set initial Position for first vector of birds
+    for (int i = 0; i < birdVectOne.size(); ++i)
+    {
+        birdVectOne[i].getSprite().setPosition(vectOnePos.x, vectOnePos.y);
+        birdVectOne[i].getSprite().setScale(1.75, 1.75);
+        vectOnePos.x -= 70.f;
+    }
+
+
+    // Set initial Position for second vector of birds
+    for (int i = 0; i < birdVectTwo.size(); ++i)
+    {
+        birdVectTwo[i].getSprite().setPosition(vectTwoPos); // set pos
+        birdVectTwo[i].getSprite().setScale(-1.75, 1.75);
+        vectTwoPos.x -= 70.f;
+    }
+
+    if (currentLevel > 1)
+    {
+        //display next level next;
+    }
+
+    startBirdFlight();
 
 
 
@@ -278,7 +341,7 @@ void Game::run()
         if (levelWon)
         {
             levelWon = false;
-            displayNextLevel();
+            //displayNextLevel();
             //return;
         }
 
@@ -382,6 +445,7 @@ void Game::playerShoots( const sf::Event& ev)
                 {
                     //if we hit the correct bird
                     levelWon = true;
+                    ++currentLevel;
                     birdVectOne.erase(birdVectOne.begin() + i);
                     birdVectOne.clear();
                     birdVectTwo.clear();

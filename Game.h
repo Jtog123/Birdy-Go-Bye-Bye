@@ -55,6 +55,8 @@ class Game
 		BirdType targetBird;
 
 		int score;
+		sf::Text currentLevelText;
+		int currentLevel;
 
 
 
