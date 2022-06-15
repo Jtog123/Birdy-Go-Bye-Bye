@@ -8,11 +8,28 @@
 #include "Game.h"
 
 
+/*
+Create timer- start it at 10 seconds
+while(timer > 0)
+{
+    if(clock.getElapsedTime.asseconds > 1.f)
+    {
+        timer -= 1;
+        clock.restart
+    }
+}
+
+
+*/
+
+
+
 
 
 Game::Game()
 {
     // EMPTY
+   
 }
 
 Game::Game(const int width, const int height)
@@ -100,6 +117,23 @@ Game::Game(const int width, const int height)
     currentLevelText2.setString(std::to_string(currentLevel));
     currentLevelText2.setPosition(250, 20);
 
+    scoreText1.setFont(font);
+    scoreText1.setString("Score: ");
+    scoreText1.setPosition(620, 20);
+
+    scoreText2.setFont(font);
+    scoreText2.setString(std::to_string(score));
+    scoreText2.setPosition(730, 20);
+
+    timerText.setFont(font);
+    timerText.setString(std::to_string(countDownTimer));
+    timerText.setPosition(400, 20);
+
+    targetText.setFont(font);
+    targetText.setString("Target: ");
+    targetText.setPosition(20, 75);
+
+
     
 
     
@@ -157,6 +191,9 @@ If the level is won figure out way to
 -create vectors
 --loop through assign those postions to vectors
 
+targetsprite
+
+
 */
     std::cout << "it worked" << std::endl;
 
@@ -165,24 +202,32 @@ If the level is won figure out way to
 
     /*SELECT TARGET BIRD, CREATE VECTORS BASED OFF TARGET BIRD*/
 
+    /*
+    * Target bird image of type Bird
+    * if brown bird assign targetbirdimage brownbird
+    */
+
     targetBird = BirdType(rand() % 3);
 
     if (targetBird == BirdType::Brown)
     {
         birdVectOne = createBirdVector(1, 6, 7); // create vects
         birdVectTwo = createBirdVector(1, 7, 6);
+        targetBirdImage = brownBird;
         std::cout << "target brown" << std::endl;
     }
     else if (targetBird == BirdType::Blue)
     {
         birdVectOne = createBirdVector(6, 1, 7); // create vects
         birdVectTwo = createBirdVector(7, 1, 6);
+        targetBirdImage = blueBird;
         std::cout << " target Blue" << std::endl;
     }
     else if (targetBird == BirdType::Red)
     {
         birdVectOne = createBirdVector(7, 6, 1); // create vects
         birdVectTwo = createBirdVector(6, 7, 1);
+        targetBirdImage = redBird;
         std::cout << "target Red" << std::endl;
     }
 
@@ -292,6 +337,33 @@ void Game::updateObjects()
 
     cloudSprite1.move(.4f, 0);
 
+
+    if (clock.getElapsedTime().asSeconds() >= 1.f)
+    {
+        countDownTimer -= 1;
+        clock.restart();
+        timerText.setString(std::to_string(countDownTimer));
+    }
+
+    if (levelWon)
+    {
+        countDownTimer = 11;
+    }
+    else if (levelWon == false && countDownTimer < 0)
+    {
+        gameOver = true;
+    }
+
+
+    //reset the timer
+    //if(levelwon)
+    // counterDwonTimer = 10;
+    // else if levelwon == false && countDownTimer < 0
+    // gameover = true;
+    targetBirdImage.getSprite().setPosition(150, 70);
+    targetBirdImage.getSprite().setScale(1.50, 1.50);
+    
+
     startBirdFlight();
 
 
@@ -314,18 +386,40 @@ void Game::drawObjects()
         window.draw(birdVectTwo[i].getSprite());
     }
 
+  
+
     //window.draw(birdBloodSprite);
 
     player->draw(window);
     window.draw(nextLevelText);
     window.draw(currentLevelText1);
     window.draw(currentLevelText2);
+    window.draw(scoreText1);
+    window.draw(scoreText2);
+    window.draw(timerText);
+    window.draw(targetText);
+    window.draw(targetBirdImage.getSprite());
     window.display();
 
 }
 
 void Game::startTimer()
 {
+
+    /*
+    Create timer- start it at 10 seconds
+    while(timer > 0)
+    {
+        if(clock.getElapsedTime.asseconds > 1.f)
+        {
+            timer -= 1;
+            clock.restart
+        }
+    }
+
+
+    */
+
 }
 
 void Game::run()
@@ -340,6 +434,8 @@ void Game::run()
         handleInputs();
 
         updateObjects();
+
+        //startTimer();
 
         if (gameOver)
         {
@@ -459,6 +555,8 @@ void Game::playerShoots(const sf::Event& ev)
                     levelWon = true;
                     ++currentLevel;
                     currentLevelText2.setString(std::to_string(currentLevel));
+                    score += 100;
+                    scoreText2.setString(std::to_string(score));
                     //birdVectOne.erase(birdVectOne.begin() + i);
 
                     displayNextLevel();
@@ -477,12 +575,7 @@ void Game::playerShoots(const sf::Event& ev)
             }
         }
 
-        /*
-        eXpl0it3r — Today at 9:47 AM
-loop one empties the vectors
-loop two won't even run because there are no birds in the vector
-that you add it later on again doesn't really matter
-        */
+
 
         // For vector 2
         for (int i = 0; i < birdVectTwo.size(); ++i)
@@ -505,6 +598,9 @@ that you add it later on again doesn't really matter
                     levelWon = true;
                     ++currentLevel;
                     currentLevelText2.setString(std::to_string(currentLevel));
+                    score += 100;
+                    scoreText2.setString(std::to_string(score));
+
                     //birdVectTwo.erase(birdVectTwo.begin() + i - 1);
 
 

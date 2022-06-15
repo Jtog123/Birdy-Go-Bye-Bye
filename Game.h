@@ -22,7 +22,6 @@ class Game
 
 	private:
 		sf::RenderWindow window;
-		sf::Clock clock;
 		std::unique_ptr<Player> player;
 		std::unique_ptr<Bird> birdPtr;
 		bool levelWon;
@@ -54,10 +53,21 @@ class Game
 
 		BirdType targetBird;
 
-		int score;
+		sf::Text scoreText1;
+		sf::Text scoreText2;
+		int score = 0;
+
 		sf::Text currentLevelText1;
 		sf::Text currentLevelText2;
 		int currentLevel = 1;
+		
+		sf::Text timerText;
+		sf::Clock clock;
+		int countDownTimer = 10;
+
+		sf::Text targetText;
+		
+		Bird targetBirdImage;
 
 
 
