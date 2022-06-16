@@ -27,6 +27,7 @@ while(timer > 0)
 
 
 Game::Game()
+    :menu(800,600)
 {
     // EMPTY
    
@@ -35,57 +36,14 @@ Game::Game()
 Game::Game(const int width, const int height)
     : window(sf::VideoMode(width, height), "Speed Hunter"),
     player(std::make_unique<Player>(window)),
-    birdPtr(std::make_unique<Bird>())
+    birdPtr(std::make_unique<Bird>()),
+    menu(800,600)
 {
     window.setFramerateLimit(60);
     initVariables();
 
     displayNextLevel();
 
-    /*SELECT TARGET BIRD, CREATE VECTORS BASED OFF TARGET BIRD*/
-
-    /*
-    targetBird = BirdType(rand() % 3);
-
-    if (targetBird == BirdType::Brown)
-    {
-        birdVectOne = createBirdVector(1, 6, 7); // create vects
-        birdVectTwo = createBirdVector(1, 7, 6);
-            std::cout << "target brown" << std::endl;
-    }
-    else if (targetBird == BirdType::Blue)
-    {
-        birdVectOne = createBirdVector(6, 1, 7); // create vects
-        birdVectTwo = createBirdVector(7, 1, 6);
-        std::cout << " target Blue" << std::endl;
-    }
-    else if (targetBird == BirdType::Red)
-    {
-        birdVectOne = createBirdVector(7, 6, 1); // create vects
-        birdVectTwo = createBirdVector(6, 7, 1);
-        std::cout << "target Red" << std::endl;
-    }
-
-    */
-    //////////////////////////////////////////////////
-    /*  ASSIGN POSITIONS FOR VECTORS OF BIRDS   */
-    /*
-    // Set initial Position for first vector of birds
-    for (int i = 0; i < birdVectOne.size(); ++i)
-    {
-        birdVectOne[i].getSprite().setPosition(vectOnePos.x, vectOnePos.y);
-        birdVectOne[i].getSprite().setScale(1.75, 1.75);
-        vectOnePos.x -= 70.f;
-    }
-
-
-    // Set initial Position for second vector of birds
-    for (int i = 0; i < birdVectTwo.size(); ++i)
-    {
-        birdVectTwo[i].getSprite().setPosition(vectTwoPos); // set pos
-        birdVectTwo[i].getSprite().setScale(-1.75, 1.75);
-        vectTwoPos.x -= 70.f;
-    }
 
     /* Load first cloud */ // Create load clouds function that moves them?
     if (!cloudText1.loadFromFile("Sprites/cloud1.png"))
@@ -161,17 +119,6 @@ void Game::initVariables()
     gameOver = false;
     timeRemaning = true;
     shotFired = false;
-    //currentLevel = 1;
-
-    //birdVectOne = createBirdVector(10, 3, 1); 
-   // birdVectTwo = createBirdVector(13, 1, 0);
-
-    //vectOnePos.x = 1675;
-    //vectOnePos.y = 150;
-
-    //vectTwoPos.x = -100;
-    //vectTwoPos.y = 350;
-
 
 }
 
@@ -180,6 +127,7 @@ void Game::initVariables()
 void Game::displayGameOver()
 {
     std::cout << "Game over" << std::endl;
+    gameOver = true;
 }
 
 void Game::displayNextLevel()
@@ -288,6 +236,9 @@ void Game::handleInputs()
             case sf::Event::MouseButtonPressed:
                 handleButtonEvents(event);
                 break;
+            case sf::Event::KeyReleased:
+                handleButtonEvents(event);
+                break;
                    
         }
     }
@@ -300,6 +251,13 @@ void Game::handleButtonEvents(sf::Event& ev)
         case sf::Mouse::Left:
             playerShoots(ev);
             break;
+        case sf::Keyboard::Up:
+            menu.moveUp();
+            break;
+        case sf::Keyboard::Down:
+            menu.moveDown();
+            break;
+
     }
 }
 
@@ -389,7 +347,6 @@ void Game::drawObjects()
   
 
     //window.draw(birdBloodSprite);
-
     player->draw(window);
     window.draw(nextLevelText);
     window.draw(currentLevelText1);
@@ -399,6 +356,7 @@ void Game::drawObjects()
     window.draw(timerText);
     window.draw(targetText);
     window.draw(targetBirdImage.getSprite());
+    menu.draw(window);
     window.display();
 
 }
@@ -425,7 +383,6 @@ void Game::startTimer()
 void Game::run()
 {
     //Add texture here?
-
 
 
     while (window.isOpen())

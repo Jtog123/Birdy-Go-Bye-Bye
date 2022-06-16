@@ -7,6 +7,7 @@
 //#include "SFML/Network.hpp"
 #include"Player.h"
 #include "Bird.h"
+#include "MainMenu.h"
 
 
 #ifndef  GAME_H
@@ -68,6 +69,8 @@ class Game
 		sf::Text targetText;
 		
 		Bird targetBirdImage;
+
+		MainMenu menu;
 
 
 
