@@ -44,13 +44,13 @@ class Game
 		sf::Sprite cloudSprite1;
 		sf::Sprite cloudSprite2;
 
-		sf::Texture birdBloodText;
-		sf::Sprite birdBloodSprite;
-
 		bool shotFired;
 		sf::Font font;
 		sf::RectangleShape nextLevelRect;
 		sf::Text nextLevelText;
+
+		sf::Text gameOverText;
+
 
 		BirdType targetBird;
 
@@ -70,7 +70,6 @@ class Game
 		
 		Bird targetBirdImage;
 
-		MainMenu menu;
 
 
 
@@ -78,10 +77,6 @@ class Game
 		std::vector<Bird> createBirdVector(int numOfBrown, int numOfBlue, int numOfRed);
 
 		void startBirdFlight();
-
-		
-
-		void birdDeath(const sf::Vector2f& position);
 
 		void playerShoots(const sf::Event& event);
 
@@ -101,7 +96,6 @@ class Game
 
 		void drawObjects();
 
-		void startTimer();
 
 
 };

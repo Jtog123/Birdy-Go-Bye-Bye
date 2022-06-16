@@ -8,26 +8,9 @@
 #include "Game.h"
 
 
-/*
-Create timer- start it at 10 seconds
-while(timer > 0)
-{
-    if(clock.getElapsedTime.asseconds > 1.f)
-    {
-        timer -= 1;
-        clock.restart
-    }
-}
-
-
-*/
-
-
-
 
 
 Game::Game()
-    :menu(800,600)
 {
     // EMPTY
    
@@ -36,8 +19,8 @@ Game::Game()
 Game::Game(const int width, const int height)
     : window(sf::VideoMode(width, height), "Speed Hunter"),
     player(std::make_unique<Player>(window)),
-    birdPtr(std::make_unique<Bird>()),
-    menu(800,600)
+    birdPtr(std::make_unique<Bird>())
+
 {
     window.setFramerateLimit(60);
     initVariables();
@@ -92,24 +75,6 @@ Game::Game(const int width, const int height)
     targetText.setPosition(20, 75);
 
 
-    
-
-    
-
-
-    /*
-    nextLevelText.setFont(font); // roundy rainbows
-    nextLevelText.setOutlineColor(sf::Color::Yellow);
-    nextLevelText.setOutlineThickness(5);
-    nextLevelText.setFillColor(sf::Color::White);
-    nextLevelText.setString("Next Level!");
-     //nextLevelText.setOrigin(window.getSize().x / 2, window.getSize().y / 2);
-    nextLevelText.setCharacterSize(125);
-    nextLevelText.setPosition((window.getSize().x - nextLevelText.getLocalBounds().width)/2 , (window.getSize().y - nextLevelText.getLocalBounds().height) /2 - 40  ); // 400 , 300
-    */
-
-
-
 }
 
 void Game::initVariables()
@@ -126,34 +91,39 @@ void Game::initVariables()
 
 void Game::displayGameOver()
 {
-    std::cout << "Game over" << std::endl;
-    gameOver = true;
+    sf::Clock localClock;
+    gameOverText.setFont(font);
+    gameOverText.setOrigin(gameOverText.getLocalBounds().left + gameOverText.getLocalBounds().width / 2,
+    gameOverText.getLocalBounds().top + gameOverText.getLocalBounds().height / 2);
+
+    gameOverText.setString("GAME OVER!");
+    gameOverText.setCharacterSize(50);
+    gameOverText.setPosition(window.getSize().x / 2 - 140, window.getSize().y / 2 - 50); // temp fix for position
+
+    bool clockSet = true;
+
+    while (clockSet)
+    {
+        window.clear();
+        window.draw(gameOverText);
+        window.display();
+
+        if (localClock.getElapsedTime().asSeconds() >= 3.f)
+         {
+            clockSet = false;
+            gameOver = true;
+         } 
+    }
+
 }
 
 void Game::displayNextLevel()
 {
-    /*
-If the level is won figure out way to
-- set target bird again
--set vector positions like in initvars
--create vectors
---loop through assign those postions to vectors
-
-targetsprite
-
-
-*/
-    std::cout << "it worked" << std::endl;
 
     birdVectOne.clear();
     birdVectTwo.clear();
 
     /*SELECT TARGET BIRD, CREATE VECTORS BASED OFF TARGET BIRD*/
-
-    /*
-    * Target bird image of type Bird
-    * if brown bird assign targetbirdimage brownbird
-    */
 
     targetBird = BirdType(rand() % 3);
 
@@ -200,9 +170,8 @@ targetsprite
     // Set initial Position for second vector of birds
     for (int i = 0; i < birdVectTwo.size(); ++i)
     {
-        birdVectTwo[i].getSprite().setPosition(vectTwoPos); // set pos
-        birdVectTwo[i].getSprite().setScale(-1.75, 1.75); // THIS LINE CAUSING PRBLEMS WITH VECTOR 2 create flipped bird sprite?
-        /*I flipped the sprites not taking into consideration their actual positions in the vector*/
+        birdVectTwo[i].getSprite().setPosition(vectTwoPos);
+        birdVectTwo[i].getSprite().setScale(-1.75, 1.75); 
         vectTwoPos.x -= 70.f;
     }
 
@@ -212,10 +181,6 @@ targetsprite
     }
 
     startBirdFlight();
-
-
-
-
 
 }
 
@@ -251,12 +216,7 @@ void Game::handleButtonEvents(sf::Event& ev)
         case sf::Mouse::Left:
             playerShoots(ev);
             break;
-        case sf::Keyboard::Up:
-            menu.moveUp();
-            break;
-        case sf::Keyboard::Down:
-            menu.moveDown();
-            break;
+
 
     }
 }
@@ -312,12 +272,7 @@ void Game::updateObjects()
         gameOver = true;
     }
 
-
-    //reset the timer
-    //if(levelwon)
-    // counterDwonTimer = 10;
-    // else if levelwon == false && countDownTimer < 0
-    // gameover = true;
+    // textTimer here?
     targetBirdImage.getSprite().setPosition(150, 70);
     targetBirdImage.getSprite().setScale(1.50, 1.50);
     
@@ -345,8 +300,6 @@ void Game::drawObjects()
     }
 
   
-
-    //window.draw(birdBloodSprite);
     player->draw(window);
     window.draw(nextLevelText);
     window.draw(currentLevelText1);
@@ -356,34 +309,14 @@ void Game::drawObjects()
     window.draw(timerText);
     window.draw(targetText);
     window.draw(targetBirdImage.getSprite());
-    menu.draw(window);
+    window.draw(gameOverText);
     window.display();
 
 }
 
-void Game::startTimer()
-{
-
-    /*
-    Create timer- start it at 10 seconds
-    while(timer > 0)
-    {
-        if(clock.getElapsedTime.asseconds > 1.f)
-        {
-            timer -= 1;
-            clock.restart
-        }
-    }
-
-
-    */
-
-}
 
 void Game::run()
 {
-    //Add texture here?
-
 
     while (window.isOpen())
     {
@@ -391,8 +324,6 @@ void Game::run()
         handleInputs();
 
         updateObjects();
-
-        //startTimer();
 
         if (gameOver)
         {
@@ -403,8 +334,6 @@ void Game::run()
         if (levelWon)
         {
             levelWon = false;
-            //displayNextLevel();
-            //return;
         }
 
 
@@ -476,14 +405,6 @@ void Game::startBirdFlight()
 
 }
 
-/*
-If the level is won figure out way to
--set vector positions
--create vectors
---assign those postions to vectors
-
-*/
-
 
 void Game::playerShoots(const sf::Event& ev)
 {
@@ -493,14 +414,7 @@ void Game::playerShoots(const sf::Event& ev)
     {
         for (int i = 0; i < birdVectOne.size(); ++i)
         {
-            //if (birdVectOOne[i].getSprite().getGlobalBounds().contains(ev.mouseButton.x, ev.mouseButton.y))
-            /*
-            ev.mouseButton.x >= birdVectOne[i].getSprite().getPosition().x &&
-                ev.mouseButton.x <= (birdVectOne[i].getSprite().getPosition().x + birdVectOne[i].getSprite().getGlobalBounds().width)
-                && ev.mouseButton.y >= birdVectOne[i].getSprite().getPosition().y &&
-                (ev.mouseButton.y <= birdVectOne[i].getSprite().getPosition().y + birdVectOne[i].getSprite().getGlobalBounds().height)
-            
-            */
+
             if (birdVectOne[i].getSprite().getGlobalBounds().contains(ev.mouseButton.x, ev.mouseButton.y))
             {
 
@@ -514,18 +428,12 @@ void Game::playerShoots(const sf::Event& ev)
                     currentLevelText2.setString(std::to_string(currentLevel));
                     score += 100;
                     scoreText2.setString(std::to_string(score));
-                    //birdVectOne.erase(birdVectOne.begin() + i);
 
                     displayNextLevel();
 
                 }
                 else
                 {
-                    //if we hit the incorrect bird
-                    //levelWon = false;
-                    //gameOver = true;
-                    //birdVectOne.erase(birdVectOne.begin() + i);
-
                     displayGameOver();
                 }
 
@@ -537,14 +445,6 @@ void Game::playerShoots(const sf::Event& ev)
         // For vector 2
         for (int i = 0; i < birdVectTwo.size(); ++i)
         {
-
-            /*
-            ev.mouseButton.x >= birdVectTwo[i].getSprite().getPosition().x &&
-                ev.mouseButton.x <= (birdVectTwo[i].getSprite().getPosition().x + birdVectTwo[i].getSprite().getGlobalBounds().width)
-                && ev.mouseButton.y >= birdVectTwo[i].getSprite().getPosition().y &&
-                (ev.mouseButton.y <= birdVectTwo[i].getSprite().getPosition().y + birdVectTwo[i].getSprite().getGlobalBounds().height)
-            
-            */
             if (birdVectTwo[i].getSprite().getGlobalBounds().contains(ev.mouseButton.x, ev.mouseButton.y))
             {
                 std::cout << "hit" << std::endl;
@@ -557,16 +457,10 @@ void Game::playerShoots(const sf::Event& ev)
                     currentLevelText2.setString(std::to_string(currentLevel));
                     score += 100;
                     scoreText2.setString(std::to_string(score));
-
-                    //birdVectTwo.erase(birdVectTwo.begin() + i - 1);
-
-
                     displayNextLevel();
                 }
                 else
                 {
-                    //birdVectTwo.erase(birdVectTwo.begin() + i - 1);
-
                     displayGameOver();
                 }
             }
