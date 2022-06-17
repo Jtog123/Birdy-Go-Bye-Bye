@@ -93,8 +93,8 @@ void Game::displayGameOver()
 {
     sf::Clock localClock;
     gameOverText.setFont(font);
-    gameOverText.setOrigin(gameOverText.getLocalBounds().left + gameOverText.getLocalBounds().width / 2,
-    gameOverText.getLocalBounds().top + gameOverText.getLocalBounds().height / 2);
+    //gameOverText.setOrigin(gameOverText.getLocalBounds().left + gameOverText.getLocalBounds().width / 2,
+    //gameOverText.getLocalBounds().top + gameOverText.getLocalBounds().height / 2);
 
     gameOverText.setString("GAME OVER!");
     gameOverText.setCharacterSize(50);
@@ -387,7 +387,7 @@ void Game::startBirdFlight()
 
     for (int i = 0; i < birdVectOne.size(); ++i)
     {
-        birdVectOne[i].getSprite().move(-1.5, 0);
+        birdVectOne[i].getSprite().move(-1.9, 0);
     }
 
 
@@ -399,7 +399,7 @@ void Game::startBirdFlight()
 
     for (int i = 0; i < birdVectTwo.size(); ++i)
     {
-        birdVectTwo[i].getSprite().move(1.5, 0);
+        birdVectTwo[i].getSprite().move(1.9, 0); //1.5 ,1.7 1.9
     }
 
 
