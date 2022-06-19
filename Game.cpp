@@ -67,6 +67,7 @@ Game::Game(const int width, const int height)
     scoreText2.setPosition(730, 20);
 
     timerText.setFont(font);
+    timerText.setCharacterSize(40);
     timerText.setString(std::to_string(countDownTimer));
     timerText.setPosition(400, 20);
 
