@@ -7,7 +7,7 @@
 //#include "SFML/Network.hpp"
 #include"Player.h"
 #include "Bird.h"
-#include "MainMenu.h"
+
 
 
 #ifndef  GAME_H
@@ -18,7 +18,6 @@ class Game
 	public:
 		Game();
 		Game(const int,const int);
-		//virtual ~Game(); // Remove Destructor?
 		void run();
 
 	private:
@@ -85,8 +84,6 @@ class Game
 		void displayGameOver();
 
 		void displayNextLevel();
-
-		void pollWindowEvents(sf::Event&);
 
 		void handleInputs();
 

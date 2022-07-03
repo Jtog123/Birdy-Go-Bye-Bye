@@ -13,7 +13,6 @@
 Game::Game()
 {
     // EMPTY
-   
 }
 
 Game::Game(const int width, const int height)
@@ -28,7 +27,7 @@ Game::Game(const int width, const int height)
     displayNextLevel();
 
 
-    /* Load first cloud */ // Create load clouds function that moves them?
+    /* Load first cloud */
     if (!cloudText1.loadFromFile("Sprites/cloud1.png"))
     {
         std::cout << "Couldn't load cloud1" << std::endl;
@@ -94,12 +93,9 @@ void Game::displayGameOver()
 {
     sf::Clock localClock;
     gameOverText.setFont(font);
-    //gameOverText.setOrigin(gameOverText.getLocalBounds().left + gameOverText.getLocalBounds().width / 2,
-    //gameOverText.getLocalBounds().top + gameOverText.getLocalBounds().height / 2);
-
     gameOverText.setString("GAME OVER!");
     gameOverText.setCharacterSize(50);
-    gameOverText.setPosition(window.getSize().x / 2 - 140, window.getSize().y / 2 - 50); // temp fix for position
+    gameOverText.setPosition(window.getSize().x / 2 - 140, window.getSize().y / 2 - 50);
 
     bool clockSet = true;
 
@@ -176,17 +172,9 @@ void Game::displayNextLevel()
         vectTwoPos.x -= 70.f;
     }
 
-    if (currentLevel > 1)
-    {
-        //display next level next;
-    }
 
     startBirdFlight();
 
-}
-
-void Game::pollWindowEvents(sf::Event& event)
-{
 }
 
 void Game::handleInputs()
@@ -217,8 +205,6 @@ void Game::handleButtonEvents(sf::Event& ev)
         case sf::Mouse::Left:
             playerShoots(ev);
             break;
-
-
     }
 }
 

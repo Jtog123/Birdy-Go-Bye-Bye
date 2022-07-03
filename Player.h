@@ -14,15 +14,10 @@ class Player
 	public:
 		Player();
 		Player(const sf::RenderWindow&);
-		void shoot();
-		//void setScopePosition(const sf::Sprite&);
 		void setScopePosition(float x, float y);
 		sf::Vector2f getScopePosition() const;
 		sf::Sprite getSprite() const;
-
-		//void draw(const sf::RenderTarget& window, sf::RenderStates) const override;
-
-		void draw(sf::RenderWindow&); // VIRTUAL FUNCTION
+		void draw(sf::RenderWindow&);
 
 	private:
 		sf::Texture texture;
@@ -31,7 +26,6 @@ class Player
 		sf::Vector2f scopePosition;
 		int totalBullets;
 
-		// functions init variables? setCircle size and pos? set lines?
 
 };
 

@@ -21,8 +21,6 @@ Player::Player(const sf::RenderWindow& window)
 
 }
 
-//Function that gets the scope center?
-
 
 void Player::setScopePosition(float x, float y)
 {
@@ -47,41 +45,8 @@ void Player::draw(sf::RenderWindow& window)
 
 
 
-/*
-void Player::draw(const sf::RenderTarget& window, sf::RenderStates) const
-{
-	window.draw(scopeSprite);
-}
-*/
 
-void Player::shoot()
-{
-	// Pass pointer to bird object? or do shooting in game class
-	// 
-	// for the scope maybe use a smallblack circle place in center of scope?
-	// putt small black circle in center of sprite
-	// if the small circle intersects bird and mouseisclicked
-	// 
-	// In the update part on click we will shoot the gun
-	//
-	// // shotFired = true
-	// bird dies and falls of map (along with this)
-	// totalBullets -= 1;
 
-	/* if (mousecliked)
-	* player->shoot() sets shotfired to true
-	* if(shotFired)
-	*	if(if the crosshairs allign and interact with bird pixels)
-	*		bird->die();
-	*		totalBullets -= 1;
-	*		check if game is won
-	*	else if(bullet MISSES and doesnt interact with pixels)
-	*		totalBullets -= 1;
-	*		check if game is over
-	* 
-	* */
-	
-}
 
 
 

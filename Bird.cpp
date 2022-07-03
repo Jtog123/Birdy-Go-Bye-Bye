@@ -1,22 +1,9 @@
 #include "Bird.h"
 
-/*
-REMINDER 
-Each Bird instance I create is one individual Bird
-
-*/
-
-
 
 Bird::Bird()
 {
 }
-
-Bird::Bird(const sf::RenderWindow& window)
-{
-	
-}
-
 
 Bird::Bird(BirdType bird_type)
 	// vector 1 position, where to create vector and use them?
@@ -83,19 +70,12 @@ void Bird::setBirdPosition(sf::Vector2f pos)
 	birdSprite.setPosition(pos);
 }
 
-//Create fliiped sprite function?
-
 
 sf::Sprite& Bird::getSprite()
 {
 	return birdSprite;
 }
 
-sf::Sprite& Bird::getFlippedSprite()
-{
-	birdSprite.setScale(-1.75, 1.75);
-	return birdSprite;
-}
 
 float Bird::getVelocity() const
 {
