@@ -6,7 +6,6 @@ Bird::Bird()
 }
 
 Bird::Bird(BirdType bird_type)
-	// vector 1 position, where to create vector and use them?
 {
 
 	switch (bird_type)
@@ -50,13 +49,6 @@ Bird::Bird(BirdType bird_type)
 
 
 }
-
-
-void Bird::draw(sf::RenderWindow& window)
-{
-	//window.draw(birdBloodSprite);
-}
-
 
 
 BirdType Bird::getBirdType()

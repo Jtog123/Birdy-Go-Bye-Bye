@@ -16,7 +16,6 @@ class Bird
 	public:
 		Bird();
 		Bird(BirdType);
-		void draw(sf::RenderWindow&);
 		BirdType getBirdType();
 		void setBirdPosition(sf::Vector2f pos);
 		sf::Sprite& getSprite();
